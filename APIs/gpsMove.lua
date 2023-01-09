@@ -58,7 +58,6 @@ function setOrientation(dir)
 	saveLocation()
 end
 
-
 function gpsMove.getOrientation()
 	return gpsMove.orientation
 end

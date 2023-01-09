@@ -1,3 +1,5 @@
+package.path = package.path..";/api/?.lua"
+
 local numberUtils = {}
 
 function numberUtils.round(number,numDecimals)
