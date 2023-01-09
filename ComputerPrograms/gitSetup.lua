@@ -27,7 +27,7 @@ function createFile(path)
         appended = appended..pieces[i].."/" 
     end
     if not (fs.exists(appended)) then
-        fs.makeDirectory(appended)
+        fs.makeDir(appended)
     end
     writeString("",path)
 end
