@@ -43,7 +43,7 @@ end
 local baseURL = "https://raw.githubusercontent.com/lewibt01/ComputerCraftScripts/master/"
 
 function requestFile(name)
-    local handle = http.get(github.baseURL..name)
+    local handle = http.get(baseURL..name)
     local result = ""
 
     if(handle) then
