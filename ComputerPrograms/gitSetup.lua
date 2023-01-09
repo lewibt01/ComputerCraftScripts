@@ -63,7 +63,7 @@ end
 
 --[[BEGIN PROPERTIES API]]
 local props = {}
-local propFilePath = "/usr/programs.prop"
+local propFilePath = "/usr/apis.prop"
 
 function getAll()
     local propFile = readString(propFilePath)
