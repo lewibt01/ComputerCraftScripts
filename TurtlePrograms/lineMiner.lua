@@ -81,9 +81,8 @@ debug(table.concat(arg,","))
 
 length = 0
 if(length == 0) then
-	debug("arg1: "..arg[1])
 	if(arg[1] == nil) then
-		print("No length provided, assuming 4")
+		debug("No length provided, assuming 4")
 		arg[1] = "4"
 	else
 		length = tonumber(arg[1])
@@ -92,9 +91,8 @@ end
 
 depth = 0
 if(depth == 0) then
-	debug("arg3: "..arg[2])
 	if(arg[2] == nil) then
-		print("No depth argument provided, assuming 100")
+		debug("No depth argument provided, assuming 100")
 		arg[2] = "100"
 	else
 		depth = tonumber(arg[2])
