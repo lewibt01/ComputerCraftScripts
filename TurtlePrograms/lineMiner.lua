@@ -18,6 +18,13 @@ function checkFuel(l, d) --length, width, depth
 	return true
 end
 
+function moveUp()
+	turtle.dig()
+	ensureMoveForward()
+	turtle.dig()
+	ensureMoveForward()
+end
+
 function drill(d)  --depth
 	local actualDepth = 0
 	debug("attempting to drill down "..d.." blocks")
@@ -31,10 +38,7 @@ function drill(d)  --depth
 		end
 	end
 
-	turtle.dig()
-	ensureMoveForward()
-	turtle.dig()
-	ensureMoveForward()
+	moveUp()
 
 	for i=1,actualDepth do
 		turtle.dig()
@@ -75,7 +79,8 @@ end
 function run(l,d) --length, depth
 	if(checkFuel(l,d)) then
 		for j=1,l do
-			drill(d)	
+			drill(d)
+			moveUp()
 		end
 	end
 end
