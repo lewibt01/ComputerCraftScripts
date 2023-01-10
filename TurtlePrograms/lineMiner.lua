@@ -92,12 +92,12 @@ end
 
 depth = 0
 if(depth == 0) then
-	debug("arg3: "..arg[3])
-	if(arg[3] == nil) then
+	debug("arg3: "..arg[2])
+	if(arg[2] == nil) then
 		print("No depth argument provided, assuming 100")
-		arg[3] = "100"
+		arg[2] = "100"
 	else
-		depth = tonumber(arg[3])
+		depth = tonumber(arg[2])
 	end
 end
 
