@@ -46,7 +46,7 @@ end
 
 function ensureMove(moveFunc,attackFunc,digFunc)
 	local counter = 10
-	local result = turtle.down()
+	local result = moveFunc()
 	while(not result and counter > 0) do
 		digFunc()
 		attackFunc()
