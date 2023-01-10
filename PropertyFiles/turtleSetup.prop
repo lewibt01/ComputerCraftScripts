@@ -5,6 +5,7 @@ APIs/github.lua:/api/github.lua
 APIs/gpsMove.lua:/api/gpsMove.lua
 APIs/properties.lua:/api/properties.lua
 APIs/numberUtils.lua:/api/numberUtils.lua
+APIs/commandTranslate.lua:/api/commandTranslate.lua
 TurtlePrograms/pillarMine.lua:/home/pillarMine.lua
 TurtlePrograms/combMiner.lua:/home/combMiner.lua
 TurtlePrograms/simpleCommands.lua:/cmd.lua
