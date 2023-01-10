@@ -84,7 +84,7 @@ end
 --[[BEGIN EXECUTION]]
 --get programs file
 print("Retrieving programs...")
-pull("PropertyFiles/apis.prop",propFilePath)
+pull("PropertyFiles/turtleSetup.prop",propFilePath)
 
 --programs will be in the format <git url>:<destination path>
 local programs = getAll()

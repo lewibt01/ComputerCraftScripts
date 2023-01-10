@@ -21,7 +21,7 @@ function replant()
 end
 
 function harvest()
-    for i=1,10 do
+    while(t.compare() or turtle.detectUp()) do
         t.dig()
         t.digUp()
         t.up()

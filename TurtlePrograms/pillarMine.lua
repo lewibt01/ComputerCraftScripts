@@ -50,7 +50,7 @@ function ensureMove(moveFunc,attackFunc,digFunc)
 	while(not result and counter > 0) do
 		digFunc()
 		attackFunc()
-		turtle.sleep(1)
+		os.sleep(1)
 		result = moveFunc()
 		counter = counter - 1
 	end
