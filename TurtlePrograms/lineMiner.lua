@@ -20,9 +20,10 @@ end
 
 function drill(d)  --depth
 	local actualDepth = 0
-	debug("drilled down "..d.." blocks")
+	debug("attempting to drill down "..d.." blocks")
 
 	for i=1,d do
+		turtle.dig()
 		turtle.digDown()
 		
 		if(turtle.down()) then
@@ -31,13 +32,16 @@ function drill(d)  --depth
 	end
 
 	turtle.dig()
-	turtle.forward()
+	ensureMoveForward()
+	turtle.dig()
+	ensureMoveForward()
 
 	for i=1,actualDepth do
+		turtle.dig()
 		turtle.digUp()
-		turtle.up()
+		ensureMoveUp()
 	end
-	debug("Moved up "..actualDepth.." blocks")
+	debug("actually drilled "..actualDepth.." blocks")
 end
 
 function ensureMove(moveFunc,attackFunc,digFunc)
