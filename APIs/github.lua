@@ -7,10 +7,6 @@ local github = {}
 github.baseURL = "https://raw.githubusercontent.com/lewibt01/ComputerCraftScripts/master/"
 
 function github.readFile(name)
-    -- local handle = http.open(github.baseURL..name, 443)
-    -- local data = handle:read()
-    -- handle:close()
-    -- return data
     return github.requestFile(name)
 end
 

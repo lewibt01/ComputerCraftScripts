@@ -5,14 +5,6 @@ local s = require("stringUtils")
 local fileOps = {}
 
 function fileOps.exists(path)
-    -- this part isn't needed for computercraft
-    -- local f = io.open(path,"r")
-    -- if(f~=nil) then
-    --     io.close(f)
-    --     return true
-    -- else
-    --     return false
-    -- end
     return fs.exists(path)
 end
 

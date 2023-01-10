@@ -1,3 +1,8 @@
+package.path = package.path..";/api/?.lua"
+
+p = require("properties")
+f = require("fileUtils")
+
 local debugFlag = false
 local function debug(...)
 	if(debugFlag) then
@@ -7,13 +12,15 @@ end
 
 local gpsMove = {}
 
-gpsMove.dataPath = "/appdata/"
+gpsMove.propertyHeader = "gpsMove/"
 gpsMove.position = {0,0,0} --using minecraft coords here, y is height, x/z is horizontal components
 gpsMove.orientation = 0 --0-3, for north, east, south, west
 
 --[[Data File Handlers]]
 function saveLocation()
 	--todo add code that writes to a file in /appdata/
+	p.set(fs.combine(gpsMove.propertyHeader,"position"),gpsMove.position)
+	p.set(fs.combine(gpsMove.propertyHeader,"orientation"),gpsMove.orientation)
 end
 
 --[[Base Functions]]
