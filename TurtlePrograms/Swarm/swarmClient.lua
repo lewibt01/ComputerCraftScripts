@@ -1,3 +1,5 @@
+package.path = package.path..";/api/?.lua"
+
 cmd = require("commandTranslate")
 
 local hostId = 2
