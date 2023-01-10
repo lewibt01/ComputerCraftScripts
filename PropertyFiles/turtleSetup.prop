@@ -1,3 +1,10 @@
+APIs/fileUtils.lua:/api/fileUtils.lua
+APIs/stringUtils.lua:/api/stringUtils.lua
+APIs/tableUtils.lua:/api/tableUtils.lua
+APIs/github.lua:/api/github.lua
+APIs/gpsMove.lua:/api/gpsMove.lua
+APIs/properties.lua:/api/properties.lua
+APIs/numberUtils.lua:/api/numberUtils.lua
 TurtlePrograms/pillarMine.lua:/home/pillarMine.lua
 TurtlePrograms/combMiner.lua:/home/combMiner.lua
 TurtlePrograms/simpleCommands.lua:/cmd.lua
