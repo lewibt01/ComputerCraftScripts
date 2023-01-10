@@ -1,4 +1,19 @@
 local sendChannel, receiveChannel = 4555,4556
-local swarmProtocol = "swarm:chunkMiner"
+local protocol = "swarm:chunkMiner"
 
-rednet.open()
+ids = {3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18}
+
+rednet.open("top")
+
+function sendCommand(command)
+	rednet.send(ids[i],command,protocol)
+
+	local id,msg = rednet.receive(protocol,5)
+	return id,msg
+end
+
+for i=1,#ids do
+	local id,result = sendCommand("forward")
+	print(id..":"..result)
+end
+
