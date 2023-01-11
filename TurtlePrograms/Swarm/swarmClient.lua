@@ -14,10 +14,14 @@ while(true) do
 	if(msg == "stop") then
 		break
 	else
-		if(msg ~= nil) then
-			print("Command received: "..msg)
+		if(msg ~= nil) then 
+			io.write("CMD:"..msg)
+			result = cmd.translate(msg)
+
+			io.write("->"..tostring(result))
+			rednet.send(hostId,result,protocol)
+
+			print(".")
 		end
-		result = cmd.translate(msg)
-		rednet.send(hostId,result,protocol)
 	end
 end
