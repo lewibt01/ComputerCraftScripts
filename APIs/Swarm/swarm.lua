@@ -1,5 +1,5 @@
 local arg = {...}
-local s.protocol = "swarm:chunkMiner"
+local s.protocol = "swarm"
 local s = {}
 
 -- s.ids = {3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18}
@@ -19,7 +19,7 @@ end
 function s.sendCommand(targetId,command)
 	--attempt to open rednet if it isn't already
 	if(not rednet.isOpen()) then
-
+		peripheral.find("modem",rednet.open)
 	end
 
 	rednet.send(targetId,command,protocol)

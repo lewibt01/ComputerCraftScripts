@@ -18,7 +18,10 @@ while(running) do
 		running = false
 		result = "stopped"
 	elseif(msg == "update") then
+		result = "updating"
+		rednet.send(hostId,result,protocol)
 		shell.run("/turtleSetup.lua")
+		break
 	else
 		if(msg ~= nil) then 
 			io.write("CMD:"..msg)
