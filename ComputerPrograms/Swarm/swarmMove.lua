@@ -17,7 +17,7 @@ for i=1,#ids do
 	if(result) then 
 		print(id[i]..":"..result)
 	else
-		print("Failed to get response from "..id[i])
+		print("Failed to get response from "..ids[i])
 	end
 end
 
