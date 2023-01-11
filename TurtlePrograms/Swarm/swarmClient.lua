@@ -9,24 +9,26 @@ rednet.open("left")
 local running = true
 
 while(running) do
-	local id,msg = rednet.receive(protocol,10) --couple second timeout
+	local id,msg = rednet.receive(protocol,60) --large timeout to prevent infinite hang
 	local result = ""
 
 	--short circuit if told to stop
 	if(msg == "stop") then
 		print("Stopping...")
-		result = "stopped"
 		running = false
+		result = "stopped"
+	elseif(msg == "update") then
+		shell.run("/turtleSetup.lua")
 	else
 		if(msg ~= nil) then 
 			io.write("CMD:"..msg)
 			result = cmd.translate(msg)
 
-			io.write("->"..tostring(result))
+			print("->"..tostring(result))
 		end
 	end
 
 	--respond to the command
 	rednet.send(hostId,result,protocol)
-	print(".")
+	io.write(".")
 end
