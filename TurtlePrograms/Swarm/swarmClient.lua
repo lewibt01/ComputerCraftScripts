@@ -16,4 +16,6 @@ while(true) do
 	else
 		result = cmd.translate(msg)
 	end
+
+	rednest.send(hostId,reuslt)
 end
