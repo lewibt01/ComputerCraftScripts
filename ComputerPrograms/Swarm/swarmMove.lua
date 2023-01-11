@@ -20,6 +20,6 @@ for i=1,#ids do
 		print("Failed to get response from "..ids[i])
 	end
 
-	os.sleep(0.05) --increase accuracy?
+	-- os.sleep(0.05) --increase accuracy?
 end
 
