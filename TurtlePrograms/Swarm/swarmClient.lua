@@ -11,7 +11,7 @@ while(true) do
 	local id,msg = rednet.receive(protocol,2) --couple second timeout
 	local result = ""
 
-	if(msg == "stop") then 
+	if(msg == "stop") then
 		break
 	else
 		if(msg ~= nil) then
