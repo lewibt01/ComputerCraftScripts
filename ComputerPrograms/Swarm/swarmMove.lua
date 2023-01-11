@@ -19,5 +19,7 @@ for i=1,#ids do
 	else
 		print("Failed to get response from "..ids[i])
 	end
+
+	os.sleep(0.05) --increase accuracy?
 end
 
