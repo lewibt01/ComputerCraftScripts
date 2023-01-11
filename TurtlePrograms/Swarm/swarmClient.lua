@@ -14,7 +14,9 @@ while(true) do
 	if(msg == "stop") then 
 		break
 	else
-		print("Command received: "..msg)
+		if(msg) then
+			print("Command received: "..msg)
+		end
 		result = cmd.translate(msg)
 		rednet.send(hostId,result)
 	end
