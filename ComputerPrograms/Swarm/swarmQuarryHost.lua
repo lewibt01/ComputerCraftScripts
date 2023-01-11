@@ -15,17 +15,14 @@ end
 function distributeCommands(command)
 	for i=1,#ids do
 		local id,result = sendCommand(ids[i],command)
-		io.write(id)
-		io.write(":")
-		print(result)
 
 		if(result ~= nil) then
-			print(ids[i]..":"..tostring(result))
+			io.write(id)
+			io.write(":")
+			print(result)
 		else
 			print("Failed to get response from "..ids[i])
 		end
-
-		-- os.sleep(0.05) --increase accuracy?
 	end
 end
 
