@@ -8,7 +8,7 @@ local protocol = "swarm:chunkMiner"
 rednet.open("left")
 
 while(true) do
-	local id,msg = rednet.receive(protocol,5) --5 second timeout
+	local id,msg = rednet.receive(protocol,2) --couple second timeout
 	local result = ""
 
 	if(msg == "stop") then 
