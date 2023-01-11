@@ -6,15 +6,17 @@ local hostId = 2
 local protocol = "swarm:chunkMiner"
 
 rednet.open("left")
+local running = true
 
-while(true) do
+while(running) do
 	local id,msg = rednet.receive(protocol,10) --couple second timeout
 	local result = ""
 
+	--short circuit if told to stop
 	if(msg == "stop") then
 		print("Stopping...")
 		result = "stopped"
-		break
+		running = false
 	else
 		if(msg ~= nil) then 
 			io.write("CMD:"..msg)
