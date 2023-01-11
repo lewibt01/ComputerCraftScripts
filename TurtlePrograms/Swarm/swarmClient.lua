@@ -12,6 +12,8 @@ while(true) do
 	local result = ""
 
 	if(msg == "stop") then
+		print("Stopping...")
+		result = "stopped"
 		break
 	else
 		if(msg ~= nil) then 
@@ -19,9 +21,10 @@ while(true) do
 			result = cmd.translate(msg)
 
 			io.write("->"..tostring(result))
-			rednet.send(hostId,result,protocol)
-
-			print(".")
 		end
 	end
+
+	--respond to the command
+	rednet.send(hostId,result,protocol)
+	print(".")
 end

@@ -48,7 +48,7 @@ function cmd.translate(input,...)
     c["suckUp"] = turtle.suckUp
     c["suckDown"] = turtle.suckDown
 
-    c["up"] = turtle.getFuelLevel
+    c["getFuelLevel"] = turtle.getFuelLevel
     c["refuel"] = turtle.refuel
     c["compareTo"] = turtle.compareTo
 
@@ -63,6 +63,13 @@ function cmd.translate(input,...)
 
     c["getItemDetail"] = turtle.getItemDetail
 
+
+    c["shutdown"] = os.shutdown
+    c["reboot"] = os.reboot
+
+    c["getComputerLabel"] = os.getComputerLabel
+    c["setComputerLabel"] = os.setComputerLabel
+    c["getComputertID"] = os.getComputerID
 
     
     if c[input] == nil then
