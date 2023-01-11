@@ -14,7 +14,7 @@ while(true) do
 	if(msg == "stop") then 
 		break
 	else
-		if(msg) then
+		if(msg ~= nil) then
 			print("Command received: "..msg)
 		end
 		result = cmd.translate(msg)
