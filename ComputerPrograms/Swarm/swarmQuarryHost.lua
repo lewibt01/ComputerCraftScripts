@@ -19,7 +19,7 @@ function distributeCommands(command)
 		io.write(":")
 		print(result)
 
-		if(result ~= nil) then 
+		if(result ~= nil) then
 			print(ids[i]..":"..tostring(result))
 		else
 			print("Failed to get response from "..ids[i])
