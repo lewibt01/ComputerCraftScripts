@@ -8,7 +8,7 @@ rednet.open("top")
 function sendCommand(id,command)
 	rednet.send(id,command,protocol)
 
-	local id,msg = rednet.receive(protocol,5)
+	local id,msg = rednet.receive(protocol,2)
 	return id,msg
 end
 
