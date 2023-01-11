@@ -18,6 +18,6 @@ while(true) do
 			print("Command received: "..msg)
 		end
 		result = cmd.translate(msg)
-		rednet.send(hostId,result)
+		rednet.send(hostId,result,protocol)
 	end
 end
