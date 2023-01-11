@@ -17,5 +17,5 @@ while(true) do
 		result = cmd.translate(msg)
 	end
 
-	rednest.send(hostId,reuslt)
+	rednet.send(hostId,result)
 end
