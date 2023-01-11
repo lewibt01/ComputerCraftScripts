@@ -14,6 +14,7 @@ while(true) do
 	if(msg == "stop") then 
 		break
 	else
+		print("Command received: "..msg)
 		result = cmd.translate(msg)
 	end
 
