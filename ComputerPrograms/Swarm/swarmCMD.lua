@@ -1,3 +1,4 @@
+local arg = {...}
 local sendChannel, receiveChannel = 4555,4556
 local protocol = "swarm:chunkMiner"
 
@@ -32,4 +33,4 @@ function distributeCommands(command)
 	end
 end
 
-distributeCommands("forward")
+distributeCommands(arg[1])
