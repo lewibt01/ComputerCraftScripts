@@ -15,7 +15,7 @@ end
 for i=1,#ids do
 	local id,result = sendCommand(ids[i],"forward")
 	if(result) then 
-		print(id[i]..":"..result)
+		print(ids[i]..":"..result)
 	else
 		print("Failed to get response from "..ids[i])
 	end
