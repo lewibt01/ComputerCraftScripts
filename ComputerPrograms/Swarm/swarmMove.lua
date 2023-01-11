@@ -14,6 +14,8 @@ end
 
 for i=1,#ids do
 	local id,result = sendCommand(ids[i],"forward")
-	print(id..":"..result)
+	if(result) then 
+		print(id[i]..":"..result)
+	end
 end
 
