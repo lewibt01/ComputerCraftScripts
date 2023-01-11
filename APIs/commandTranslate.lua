@@ -63,7 +63,6 @@ function cmd.translate(input,...)
 
     c["getItemDetail"] = turtle.getItemDetail
 
-
     c["shutdown"] = os.shutdown
     c["reboot"] = os.reboot
 
