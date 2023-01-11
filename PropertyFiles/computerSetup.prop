@@ -6,6 +6,6 @@ APIs/gpsMove.lua:/api/gpsMove.lua
 APIs/properties.lua:/api/properties.lua
 APIs/numberUtils.lua:/api/numberUtils.lua
 APIs/commandTranslate.lua:/api/commandTranslate.lua
-ComputerPrograms/Swarm/swarmMove.lua:/swarm/move.lua
+ComputerPrograms/Swarm/swarmCMD.lua:/swarm/swarmCMD.lua
 ComputerPrograms/Swarm/swarmQuarryHost:/swarm/quarryHost.lua
 ComputerPrograms/gitSetup.lua:/computerSetup.lua
