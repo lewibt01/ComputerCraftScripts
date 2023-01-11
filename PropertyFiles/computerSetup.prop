@@ -7,4 +7,4 @@ APIs/properties.lua:/api/properties.lua
 APIs/numberUtils.lua:/api/numberUtils.lua
 APIs/commandTranslate.lua:/api/commandTranslate.lua
 ComputerPrograms/Swarm/swarmMove.lua:/swarm/host.lua
-ComputerPrograms/updateAll.lua:/computerSetup.lua
+ComputerPrograms/gitSetup.lua:/computerSetup.lua
