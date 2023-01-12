@@ -6,6 +6,7 @@ local protocol = "swarm:chunkMiner"
 ids = {3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18}
 
 s = require("swarm")
+s.protocol = protocol
 
 --register the computer IDs
 for i=1,#ids do
@@ -37,6 +38,6 @@ rednet.open("top")
 
 -- s.distributeCommands(arg[1])
 
-s.distributeCommands(arg[1],ids)
+s.distributeCommands(ids,arg[1])
 
 rednet.close("top")

@@ -26,7 +26,7 @@ function s.sendCommand(targetId,command)
 	return id,msg
 end
 
-function s.distributeCommands(command,idList)
+function s.distributeCommands(idList,command)
 	for i=1,#idList do
 		local id,result = s.sendCommand(idList[i],command)
 
