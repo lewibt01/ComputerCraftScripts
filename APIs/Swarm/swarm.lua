@@ -43,7 +43,14 @@ function s.distributeCommands(command,idList)
 end
 
 function s.broadcastCommand(command)
+	local responses = {}
+	local coroutines = {}
 	rednet.broadcast(command,s.protocol)
+
+	for i=1,#s.ids do
+		local c = coroutine.create(rednet.receive)
+		table.insert(coroutines,c)
+	end
 end
 
 return s

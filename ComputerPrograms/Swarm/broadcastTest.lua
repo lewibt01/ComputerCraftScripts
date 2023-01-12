@@ -20,8 +20,14 @@ function broadcastTest(command)
 		local id,msg = rednet.receive(s.protocol)
 		results[id] = msg
 	end
+
+	return results
 end
 
-broadcastTest(arg[1])
+--gather and print output
+local output = broadcastTest(arg[1])
+for i=1,#s.ids do
+	print(output[s.ids[i]])
+end
 
 rednet.close("top")
