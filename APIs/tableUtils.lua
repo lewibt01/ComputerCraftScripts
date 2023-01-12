@@ -53,4 +53,28 @@ function t.split(orig, index)
     return r1,r2
 end
 
+--attempt to convert numeric string members to numbers, leave other values as they are
+function convertToNumbers(stringArgs)
+    local legalChars = "0123456789"
+    local numberArgs = {}
+    for i=1,#stringArgs do
+        local arg = stringArgs[i]
+        local isNumber = true
+        for j=1,#arg do
+            local c = string.sub(arg,j,j)
+            if(string.find(legalChars,c) == nil) then
+                isNumber = false
+                break
+            end
+        end
+        if(isNumber) then
+            numberArgs[i] = tonumber(arg)
+        else
+            numberArgs[i] = arg
+        end
+    end
+
+    return numberArgs
+end
+
 return t

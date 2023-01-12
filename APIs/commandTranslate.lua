@@ -76,7 +76,7 @@ function cmd.translate(input,...)
         return false
     end
     if(arg ~= nil) then
-        for k,v in pairs(arg) do print(k..":"..v) end
+        for k,v in pairs(arg) do print(tostring(k)..":"..tostring(v)) end
         if(#arg > 0) then
             return c[input](table.unpack(arg))
         else
