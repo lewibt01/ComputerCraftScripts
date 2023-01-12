@@ -42,4 +42,8 @@ function s.distributeCommands(command,idList)
 	end
 end
 
+function s.broadcastCommand(command)
+	rednet.broadcast(command,s.protocol)
+end
+
 return s
