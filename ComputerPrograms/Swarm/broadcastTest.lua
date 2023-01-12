@@ -38,10 +38,12 @@ end
 function broadcastTest(command)
 	s.broadcastCommand(command)
 
-	--function table
-	local f = factory(#s.ids)
-	local fResults = {} --results of the above functions, linked by index
+	--results of the functions, linked by index
+	local fResults = {}
 
+	--function table
+	local f = factory(#s.ids,fResults)
+	
 	parallel.waitForAll(table.unpack(f))
 
 	for k,v in pairs(fResults) do
