@@ -97,25 +97,27 @@ while(running) do
 	local id,msg = rednet.receive(protocol,60) --large timeout to prevent infinite hang
 	local result = ""
 
-	--short circuit if told to stop
-	if(msg == "stop") then
-		print("Stopping...")
-		running = false
-		result = "stopped"
+	if(msg ~= nil) then
+		--short circuit if told to stop
+		if(msg == "stop") then
+			print("Stopping...")
+			running = false
+			result = "stopped"
 
-	--auto updating for ease of use
-	elseif(msg == "update") then
-		result = "updating"
+		--auto updating for ease of use
+		elseif(msg == "update") then
+			result = "updating"
+			rednet.send(hostId,result,protocol)
+			shell.run("/turtleSetup.lua")
+			break
+		else
+			--at this point we could have potential arguments, so more processing is needed
+			debug("msg:",msg)
+			result = processCommand(msg)
+		end
+
+		--respond to the command
 		rednet.send(hostId,result,protocol)
-		shell.run("/turtleSetup.lua")
-		break
-	else
-		--at this point we could have potential arguments, so more processing is needed
-		debug("msg:",msg)
-		result = processCommand(msg)
 	end
-
-	--respond to the command
-	rednet.send(hostId,result,protocol)
-	io.write(".")
+	io.write(".") --ouptut to show heartbeat
 end
