@@ -108,7 +108,7 @@ function processCommand(commandString)
 
 	if(command ~= nil and args ~= nil) then
 		io.write("CMD:"..command.." "..table.concat(args," "))
-		result = cmd.translate(command,args)
+		result = cmd.translate(command,table.unpack(args))
 	elseif(command ~= nil and args == nil) then
 		io.write("CMD:"..command)
 		result = cmd.translate(command)
