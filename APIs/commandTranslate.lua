@@ -1,3 +1,10 @@
+local debugFlag = false
+local function debug(...)
+    if(debugFlag) then
+        print(...)
+    end
+end
+
 cmd = {}
 
 function cmd.translate(input,...)
@@ -76,7 +83,7 @@ function cmd.translate(input,...)
         return false
     end
     if(arg ~= nil) then
-        for k,v in pairs(arg) do print(tostring(k)..":"..tostring(v)) end
+        for k,v in pairs(arg) do debug(tostring(k)..":"..tostring(v)) end
         if(#arg > 0) then
             return c[input](table.unpack(arg))
         else

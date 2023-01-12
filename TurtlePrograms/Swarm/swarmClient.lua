@@ -46,35 +46,6 @@ local running = true
 -- 	io.write(".")
 -- end
 
-
---attempt to convert string arguments to numbers, leave other values as they are
--- function convertToNumberArgs(stringArgs)
--- 	local legalChars = "0123456789"
--- 	local numberArgs = {}
--- 	for i=1,#stringArgs do
--- 		local arg = stringArgs[i]
--- 		print("arg:",arg,"#arg",#arg)
--- 		local isNumber = true
--- 		for j=1,#arg do
--- 			local c = string.sub(arg,j,j)
--- 			print("\tchar:",c)
--- 			if(string.find(legalChars,c) == nil) then
--- 			    isNumber = false
--- 				break
--- 			end
--- 		end
--- 		if(isNumber) then
--- 		    print(arg,"is numeric")
--- 			numberArgs[i] = tonumber(arg)
--- 		else
--- 		    print(arg,"is not numeric")
--- 			numberArgs[i] = arg
--- 		end
--- 	end
-
--- 	return numberArgs
--- end
-
 --separate the arguments out of a commandstring, returning nil for the arguments if there arent any
 function processArgs(commandString)
 	debug("cmdStr:",commandString)
@@ -101,8 +72,6 @@ end
 function processCommand(commandString)
 	local result = ""
 	local command,args = processArgs(commandString)
-
-
 
 	debug("cmd:",command,"args:",table.concat(args,","))
 
