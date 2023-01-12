@@ -4,6 +4,13 @@ cmd = require("commandTranslate")
 s = require("stringUtils")
 t = require("tableUtils")
 
+local debugFlag = true
+local function debug(...)
+	if(debugFlag) then
+		print(...)
+	end
+end
+
 local hostId = 2
 local protocol = "swarm:chunkMiner"
 
@@ -41,20 +48,20 @@ local running = true
 
 --separate the arguments out of a commandstring, returning nil for the arguments if there arent any
 function processArgs(commandString)
-	print("cmdStr:",commandString)
+	debug("cmdStr:",commandString)
 	--if we have args...
 	if(string.find(commandString," ")) then
-		local pieces = s.splitStr(msg," ")
-		print("\tpieces",table.concat(pieces))
+		local pieces = s.splitStr(commandString," ")
+		debug("\tpieces",table.concat(pieces))
 		local cmdTable,args = t.split(pieces,2)
-		print("\tcmdTable:",cmdTable)
-		print("\targs",table.concat(args,","))
+		debug("\tcmdTable:",cmdTable)
+		debug("\targs",table.concat(args,","))
 		local command = cmdTable[1]
 
 		return command,args
 	--otherwise...
 	else
-		print("No args: ",commandString)
+		debug("No args: ",commandString)
 		return commandString,nil
 	end
 end
@@ -62,7 +69,7 @@ end
 function processCommand(commandString)
 	local result = ""
 	local command,args = processArgs(commandString)
-	print("cmd:",command,"args",args)
+	debug("cmd:",command,"args",args)
 
 	if(command ~= nil and args ~= nil) then
 		io.write("CMD:"..command.." "..table.concat(args," "))
@@ -96,7 +103,7 @@ while(running) do
 		break
 	else
 		--at this point we could have potential arguments, so more processing is needed
-		print("msg:",msg)
+		debug("msg:",msg)
 		result = processCommand(msg)
 	end
 
