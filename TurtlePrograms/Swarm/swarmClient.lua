@@ -41,14 +41,20 @@ local running = true
 
 --separate the arguments out of a commandstring, returning nil for the arguments if there arent any
 function processArgs(commandString)
+	print("cmdStr:",commandString)
 	--if we have args...
 	if(string.find(commandStr," ")) then
 		local pieces = s.splitStr(msg," ")
+		print("\tpieces",table.concat(pieces))
 		local cmdTable,args = t.split(pieces,2)
+		print("\tcmdTable:",cmdTable)
+		print("\targs",table.concat(args,","))
 		local command = cmdTable[1]
+
 		return command,args
 	--otherwise...
 	else
+		print("No args: ",commandString)
 		return commandString,nil
 	end
 end
@@ -56,6 +62,7 @@ end
 function processCommand(commandString)
 	local result = ""
 	local command,args = processArgs(commandString)
+	print("cmd:",command,"args",args)
 
 	if(command ~= nil and args ~= nil) then
 		io.write("CMD:"..command.." "..table.concat(args," "))
@@ -89,6 +96,7 @@ while(running) do
 		break
 	else
 		--at this point we could have potential arguments, so more processing is needed
+		print("msg:",msg)
 		result = processCommand(msg)
 	end
 
