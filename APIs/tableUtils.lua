@@ -54,7 +54,7 @@ function t.split(orig, index)
 end
 
 --attempt to convert numeric string members to numbers, leave other values as they are
-function convertToNumbers(stringArgs)
+function t.convertToNumbers(stringArgs)
     local legalChars = "0123456789"
     local numberArgs = {}
     for i=1,#stringArgs do

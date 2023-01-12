@@ -81,7 +81,7 @@ function processArgs(commandString)
 	--if we have args...
 	if(string.find(commandString," ")) then
 		local pieces = s.splitStr(commandString," ")
-		debug("\tpieces:",table.concat(pieces))
+		debug("\tpieces:",table.concat(pieces,","))
 		local cmdTable,args = t.split(pieces,2)
 		debug("\tcmdTable:",table.concat(cmdTable,","))
 		debug("\targs:",table.concat(args,","))
