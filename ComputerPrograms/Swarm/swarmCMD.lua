@@ -37,6 +37,6 @@ rednet.open("top")
 
 -- s.distributeCommands(arg[1])
 
-s.distributeCommands(arg[1])
+s.distributeCommands(arg[1],ids)
 
 rednet.close("top")
