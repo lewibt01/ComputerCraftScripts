@@ -14,15 +14,24 @@ function s.deregister(id)
 	s.ids[id] = nil
 end
 
+function s.getRegistry()
+	local output = {}
+	for k,v in pairs(s.ids) do
+		table.insert(output,k)
+	end
+
+	return output
+end
+
 function s.sendCommand(targetId,command)
 	--attempt to open rednet if it isn't already
 	if(not rednet.isOpen()) then
 		peripheral.find("modem",rednet.open)
 	end
 
-	rednet.send(targetId,command,protocol)
+	rednet.send(targetId,command,s.protocol)
 
-	local id,msg = rednet.receive(protocol,2)
+	local id,msg = rednet.receive(s.protocol,2)
 	return id,msg
 end
 
