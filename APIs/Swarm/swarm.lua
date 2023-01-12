@@ -28,7 +28,7 @@ end
 
 function s.distributeCommands(command,idList)
 	for i=1,#idList do
-		local id,result = sendCommand(idList[i],command)
+		local id,result = s.sendCommand(idList[i],command)
 
 		if(result ~= nil) then
 			io.write(id)
