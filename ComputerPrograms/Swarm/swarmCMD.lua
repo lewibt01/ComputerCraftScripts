@@ -1,3 +1,5 @@
+package.path = package.path..";/api/?.lua"
+
 local arg = {...}
 local protocol = "swarm:chunkMiner"
 
