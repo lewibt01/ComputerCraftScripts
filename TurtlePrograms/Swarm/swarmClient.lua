@@ -11,6 +11,12 @@ local function debug(...)
 	end
 end
 
+local function debugIO(...)
+	if(debugFlag) then
+		io.write(...)
+	end
+end
+
 local hostId = 2
 local protocol = "swarm:chunkMiner"
 
@@ -72,8 +78,6 @@ end
 function processCommand(commandString)
 	local result = ""
 	local command,args = processArgs(commandString)
-
-	debug("cmd:",command,"args:",table.concat(args,","))
 
 	if(command ~= nil and args ~= nil) then
 		io.write("CMD:"..command.." "..table.concat(args," "))
