@@ -29,4 +29,28 @@ function t.deepCopy(orig)
     return copy
 end
 
+--initialize a table with <numSlots> instances of <initVal>
+function t.initTable(initVal,numSlots)
+    local result = {}
+    for i=1,numSlots do
+        table.insert(initVal)
+    end
+end
+
+--split a table into two, 
+---left table runs until the index, 
+---right table includes the index and the rest of the original table
+function t.split(orig, index)
+    r1 = {}
+    r2 = {}
+    for i=1,index do
+        table.insert(r1,orig[i])
+    end
+    for i=index,#orig do
+        table.insert(r2,orig[i])
+    end
+
+    return r1,r2
+end
+
 return t

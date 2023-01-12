@@ -70,6 +70,7 @@ function cmd.translate(input,...)
     c["setComputerLabel"] = os.setComputerLabel
     c["getComputertID"] = os.getComputerID
 
+    c["locate"] = gps.locate
     
     if c[input] == nil then
         return false

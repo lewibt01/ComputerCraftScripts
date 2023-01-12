@@ -1,12 +1,75 @@
 package.path = package.path..";/api/?.lua"
 
 cmd = require("commandTranslate")
+s = require("stringUtils")
+t = require("tableUtils")
 
 local hostId = 2
 local protocol = "swarm:chunkMiner"
 
 rednet.open("left")
 local running = true
+
+--backup
+-- while(running) do
+-- 	local id,msg = rednet.receive(protocol,60) --large timeout to prevent infinite hang
+-- 	local result = ""
+
+-- 	--short circuit if told to stop
+-- 	if(msg == "stop") then
+-- 		print("Stopping...")
+-- 		running = false
+-- 		result = "stopped"
+-- 	elseif(msg == "update") then
+-- 		result = "updating"
+-- 		rednet.send(hostId,result,protocol)
+-- 		shell.run("/turtleSetup.lua")
+-- 		break
+-- 	else
+-- 		if(msg ~= nil) then 
+-- 			io.write("CMD:"..msg)
+-- 			result = cmd.translate(msg)
+
+-- 			print("->"..tostring(result))
+-- 		end
+-- 	end
+
+-- 	--respond to the command
+-- 	rednet.send(hostId,result,protocol)
+-- 	io.write(".")
+-- end
+
+--separate the arguments out of a commandstring, returning nil for the arguments if there arent any
+function processArgs(commandString)
+	--if we have args...
+	if(string.find(commandStr," ")) then
+		local pieces = s.splitStr(msg," ")
+		local cmdTable,args = t.split(pieces,2)
+		local command = cmdTable[1]
+		return command,args
+	--otherwise...
+	else
+		return commandString,nil
+	end
+end
+
+function processCommand(commandString)
+	local result = ""
+	local command,args = processArgs(commandString)
+
+	if(command ~= nil and args ~= nil) then
+		io.write("CMD:"..command.." "..table.concat(args," "))
+		result = cmd.translate(command,args)
+	elseif(command ~= nil and args == nil) then
+		io.write("CMD:"..command)
+		result = cmd.translate(command)
+	else
+		result = "failed to execute"..commandString
+	end
+
+	print("->"..tostring(result))
+	return result
+end
 
 while(running) do
 	local id,msg = rednet.receive(protocol,60) --large timeout to prevent infinite hang
@@ -17,18 +80,16 @@ while(running) do
 		print("Stopping...")
 		running = false
 		result = "stopped"
+
+	--auto updating for ease of use
 	elseif(msg == "update") then
 		result = "updating"
 		rednet.send(hostId,result,protocol)
 		shell.run("/turtleSetup.lua")
 		break
 	else
-		if(msg ~= nil) then 
-			io.write("CMD:"..msg)
-			result = cmd.translate(msg)
-
-			print("->"..tostring(result))
-		end
+		--at this point we could have potential arguments, so more processing is needed
+		result = processCommand(msg)
 	end
 
 	--respond to the command
