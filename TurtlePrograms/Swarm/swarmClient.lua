@@ -43,7 +43,7 @@ local running = true
 function processArgs(commandString)
 	print("cmdStr:",commandString)
 	--if we have args...
-	if(string.find(commandStr," ")) then
+	if(string.find(commandString," ")) then
 		local pieces = s.splitStr(msg," ")
 		print("\tpieces",table.concat(pieces))
 		local cmdTable,args = t.split(pieces,2)
