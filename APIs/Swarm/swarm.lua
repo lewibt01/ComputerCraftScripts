@@ -32,11 +32,6 @@ function s.sendCommand(targetId,command)
 	rednet.send(targetId,command,s.protocol)
 
 	local id,msg = rednet.receive(s.protocol,2)
-	if(msg ~= nil) then
-		msg = textutils.unserialize(msg)
-	else
-		msg = "error:no response"
-	end
 	return id,msg
 end
 
@@ -47,6 +42,9 @@ function s.distributeCommand(idList,command)
 		if(result ~= nil) then
 			io.write(id)
 			io.write(":")
+			
+			--if we have something, unserialize it
+			result = textutils.unserialize(result)
 			print(result)
 		else
 			print("Failed to get response from "..idList[i])
