@@ -32,6 +32,7 @@ function s.sendCommand(targetId,command)
 	rednet.send(targetId,command,s.protocol)
 
 	local id,msg = rednet.receive(s.protocol,2)
+	msg = textutils.unserialize(msg)
 	return id,msg
 end
 

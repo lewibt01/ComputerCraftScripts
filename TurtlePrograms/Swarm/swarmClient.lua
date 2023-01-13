@@ -117,7 +117,7 @@ while(running) do
 		end
 
 		--respond to the command
-		rednet.send(hostId,result,protocol)
+		rednet.send(hostId,textutils.serialize(result),protocol)
 	end
 	io.write(".") --ouptut to show heartbeat
 end
