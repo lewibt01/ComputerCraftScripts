@@ -38,8 +38,8 @@ function cmd.translate(input,...)
     c["dropDown"] = turtle.dropDown
 
     c["select"] = turtle.select
-    c["selectUp"] = turtle.getItemCount
-    c["selectDown"] = turtle.getItemSpace
+    c["getItemCount"] = turtle.getItemCount
+    c["getItemSpace"] = turtle.getItemSpace
 
     c["detect"] = turtle.detect
     c["detectUp"] = turtle.detectUp
