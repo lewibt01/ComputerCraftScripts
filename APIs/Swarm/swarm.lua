@@ -32,7 +32,11 @@ function s.sendCommand(targetId,command)
 	rednet.send(targetId,command,s.protocol)
 
 	local id,msg = rednet.receive(s.protocol,2)
-	msg = textutils.unserialize(msg)
+	if(msg ~= nil) then
+		msg = textutils.unserialize(msg)
+	else
+		msg = "error:no response"
+	end
 	return id,msg
 end
 
