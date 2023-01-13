@@ -4,7 +4,7 @@ cmd = require("commandTranslate")
 s = require("stringUtils")
 t = require("tableUtils")
 
-local debugFlag = true
+local debugFlag = false
 local function debug(...)
 	if(debugFlag) then
 		print(...)
