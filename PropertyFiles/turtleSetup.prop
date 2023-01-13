@@ -7,6 +7,7 @@ APIs/properties.lua:/api/properties.lua
 APIs/numberUtils.lua:/api/numberUtils.lua
 APIs/commandTranslate.lua:/api/commandTranslate.lua
 APIs/Swarm/swarm.lua:/api/swarm.lua
+APIs/Swarm/gpsWrapper.lua:/api/gpsWrapper.lua
 TurtlePrograms/pillarMine.lua:/home/pillarMine.lua
 TurtlePrograms/combMiner.lua:/home/combMiner.lua
 TurtlePrograms/simpleCommands.lua:/cmd.lua

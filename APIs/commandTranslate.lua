@@ -5,6 +5,8 @@ local function debug(...)
     end
 end
 
+g = require("gpsWrapper")
+
 cmd = {}
 
 function cmd.translate(input,...)
@@ -77,7 +79,8 @@ function cmd.translate(input,...)
     c["setComputerLabel"] = os.setComputerLabel
     c["getComputertID"] = os.getComputerID
 
-    c["locate"] = gps.locate
+    c["locate"] = g.locate --this is a wrapped function, not the real one.
+    
     
     if c[input] == nil then
         return false
