@@ -83,7 +83,7 @@ function cmd.translate(input,...)
     c["orient"] = g.orient --gps helper for finding orientation based on movement
 
     if c[input] == nil then
-        return false
+        return nil
     end
     if(arg ~= nil) then
         for k,v in pairs(arg) do debug(tostring(k)..":"..tostring(v)) end
