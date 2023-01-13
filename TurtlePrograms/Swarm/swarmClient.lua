@@ -102,12 +102,12 @@ while(running) do
 		if(msg == "stop") then
 			print("Stopping...")
 			running = false
-			result = "stopped"
+			result = textutils.serialize("stopped")
 
 		--auto updating for ease of use
 		elseif(msg == "update") then
 			result = "updating"
-			rednet.send(hostId,result,protocol)
+			rednet.send(hostId,textutils.serialize(result),protocol)
 			shell.run("/turtleSetup.lua")
 			break
 		else
