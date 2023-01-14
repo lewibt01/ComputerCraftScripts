@@ -111,6 +111,18 @@ function dropUp()
 	s.distributeCommand(ids,"dropUp")
 end
 
+function attack()
+	s.distributeCommand(ids,"attack")
+end
+
+function attackUp()
+	s.distributeCommand(ids,"attackUp")
+end
+
+function attackDown()
+	s.distributeCommand(ids,"attackDown")
+end
+
 function select(n)
 	local tmp = n % 17 --not the most accurate but close enough
 	s.distributeCommand(ids,"select "..tmp)
@@ -210,6 +222,10 @@ end
 
 function main()
 	print("Starting quarry")
+
+	--determine start height, return to this height later
+	local startHeight = plumbDepth(ids[1])
+
 	locate()
 	orient()
 
@@ -220,7 +236,19 @@ function main()
 		digForwardStep()
 		rotateStep()
 		dumpInventory()
+		locate()
 	end
+
+	local endHeight = plumbDepth()
+	local heightToClimb = startHeight - endHeight
+	print("Climbing:",heightToClimb)
+	for i=1,heightToClimb do
+		attackUp()
+		digUp()
+		up()
+	end
+
+	print("Quarry finished")
 end
 
 --[[Main Execution]]
