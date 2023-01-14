@@ -1,7 +1,7 @@
 local arg = {...}
 local t = turtle
 
-for i=1,arg[1] do
+for i=1,tonumber(arg[1]) do
 	t.dig()
 	t.forward()
 	t.digUp()

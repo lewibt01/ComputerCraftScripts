@@ -123,22 +123,37 @@ function getFuelLevel()
 	end
 end
 
+--[[Aggregate Functions]]
+function test()
+	--init
+	locate()
+	orient()
+
+	--get turtles into position
+	digDown()
+	down()
+	digDown()
+	down()
+
+	--DEBUG: attampt to reverse other actions
+	up()
+	placeDown()
+	up()
+	placeDown()
+end
+
+function plumbDepth()
+	local y = location[ids[1]][2] - 1
+	return y
+end
+
+function findNumIterations()
+	local depth = plumbDepth()
+	local iterations = depth // 3
+
+end
 --[[Main Execution]]
---init
-locate()
-orient()
 
---get turtles into position
-digDown()
-down()
-digDown()
-down()
-
---DEBUG: attampt to reverse other actions
-up()
-placeDown()
-up()
-placeDown()
 
 
 --run the commands

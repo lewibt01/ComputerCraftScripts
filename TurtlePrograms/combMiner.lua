@@ -1,5 +1,9 @@
 local arg = {...}
 
+function hasEnderChest()
+	
+end
+
 function trunkStep()
 	turtle.dig() --clear the first block
 	turtle.forward() --move into the newly created space
