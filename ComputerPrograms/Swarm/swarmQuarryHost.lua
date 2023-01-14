@@ -149,11 +149,82 @@ end
 
 function findNumIterations()
 	local depth = plumbDepth()
-	local iterations = depth // 3
-	
+	return depth // 3
 end
---[[Main Execution]]
 
+--ensure the turtle has at least one free slot
+function hasFreeSlot(target)
+	local slotIsFree = {}
+	for i=1,14 do
+		run(target, "select "..i)
+		slotIsFree[i] = (run(target,"getItemCount") == 0)
+	end
+
+	--check for at least one free slot, 
+	local hasFreeSlot = false
+	for i=1,#slotIsFree do
+		if(slotIsFree[i]) then
+			hasFreeSlot = true
+		end
+	end
+
+	return hasFreeSlot
+end
+
+function dumpInventory()
+	select(16) --reserved slot for dump chest
+	placeUp() --place dump chest above
+
+	for i=1,14 do
+		select(i)
+		dropUp()
+	end
+
+	select(16)
+	digUp()
+	select(1)
+end
+
+--digging steps
+function digDownStep()
+	digDown()
+	down()
+	digDown()
+	down()
+	--adding a third makes the quarry more efficient, but makes it less resilient to falling blocks
+end
+
+function digFowrardStep()
+	for i=1,16 do
+		dig()
+		digUp()
+		digDown()
+		forward()
+	end
+end
+
+function rotateStep()
+	rotateRight()
+	rotateRight()
+end
+
+function main()
+	print("Starting quarry")
+	locate()
+	orient()
+
+	local iterations = findNumIterations()
+	for i=1,iterations do
+		print("Step:",i,"/",iterations)
+		digDownStep()
+		digForwardStep()
+		rotateStep()
+		dumpInventory()
+	end
+end
+
+--[[Main Execution]]
+main()
 
 
 --run the commands
