@@ -160,7 +160,7 @@ function checkFuel()
 end
 
 function plumbDepth()
-	local y = location[ids[1]][2] - 1
+	local y = locations[ids[1]][2] - 1
 	return y
 end
 
