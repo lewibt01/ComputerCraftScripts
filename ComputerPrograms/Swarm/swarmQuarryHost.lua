@@ -30,7 +30,7 @@ end
 s.protocol = protocol
 
 --open rednet
-rednet.open("top")
+peripheral.find("modem",rednet.open)
 
 --[[Functions]]
 function run(id,command)
@@ -150,7 +150,7 @@ end
 function findNumIterations()
 	local depth = plumbDepth()
 	local iterations = depth // 3
-
+	
 end
 --[[Main Execution]]
 

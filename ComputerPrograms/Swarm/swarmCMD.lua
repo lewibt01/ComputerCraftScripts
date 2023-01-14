@@ -20,9 +20,13 @@ for i=1,#ids do
 	s.register(ids[i])
 end
 
-rednet.open("top")
+function openRednet()
+
+end
+
+peripheral.find("modem",rednet.open)
 
 --run the command
 s.distributeCommand(ids,arg[1])
 
-rednet.close("top")
+peripheral.find("modem",rednet.close)
