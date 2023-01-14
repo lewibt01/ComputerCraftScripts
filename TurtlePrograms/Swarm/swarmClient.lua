@@ -110,7 +110,7 @@ while(running) do
 		elseif(msg == "update") then
 			result = "updating"
 			rednet.send(hostId,result,protocol)
-			shell.run("/turtleSetup.lua")
+			shell.run("/swarmSetup.lua")
 			break
 		else
 			--at this point we could have potential arguments, so more processing is needed
