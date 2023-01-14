@@ -14,4 +14,7 @@ TurtlePrograms/simpleCommands.lua:/cmd.lua
 TurtlePrograms/Treefarmer.lua:/home/treeFarmer.lua
 TurtlePrograms/lineMiner.lua:/home/lineMiner.lua
 TurtlePrograms/Swarm/swarmClient.lua:/swarm/client.lua
+ComputerPrograms/Swarm/swarmCMD.lua:/swarm/swarmCMD.lua
+ComputerPrograms/Swarm/swarmQuarryHost.lua:/swarm/quarryHost.lua
+ComputerPrograms/Swarm/broadcastTest.lua:/swarm/broadcastTest.lua
 TurtlePrograms/turtleGitSetup.lua:/turtleSetup.lua
