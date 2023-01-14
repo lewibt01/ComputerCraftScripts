@@ -156,11 +156,13 @@ function test()
 end
 
 function checkFuel()
-
+	
 end
 
 function plumbDepth()
+	debug(table.concat(locations[ids[1]]))
 	local y = locations[ids[1]][2] - 1
+	
 	return y
 end
 
