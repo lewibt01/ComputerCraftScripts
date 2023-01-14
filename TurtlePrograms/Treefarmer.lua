@@ -21,13 +21,15 @@ function replant()
 end
 
 function harvest()
+    local count = 0
     while(t.compare() or turtle.detectUp()) do
         t.dig()
         t.digUp()
         t.up()
+        count = count + 1
     end
 
-    for i=1,10 do
+    for i=1,count do
         t.down()
     end
 
