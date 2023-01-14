@@ -17,7 +17,7 @@ local function debugIO(...)
 	end
 end
 
-local hostId = 2
+local hostId = 19
 local protocol = "swarm:chunkMiner"
 
 rednet.open("left")

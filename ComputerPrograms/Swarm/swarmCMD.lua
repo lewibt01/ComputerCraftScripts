@@ -20,10 +20,6 @@ for i=1,#ids do
 	s.register(ids[i])
 end
 
-function openRednet()
-
-end
-
 peripheral.find("modem",rednet.open)
 
 --run the command
