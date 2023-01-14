@@ -2,6 +2,7 @@ package.path = package.path..";/api/?.lua"
 
 s = require("swarm")
 t = require("tableUtils")
+n = require("numberUtils")
 
 local debugFlag = false
 local function debug(...)
@@ -154,6 +155,10 @@ function test()
 	placeDown()
 end
 
+function checkFuel()
+
+end
+
 function plumbDepth()
 	local y = location[ids[1]][2] - 1
 	return y
@@ -161,7 +166,7 @@ end
 
 function findNumIterations()
 	local depth = plumbDepth()
-	return depth // 3
+	return math.floor(depth / 3)
 end
 
 --ensure the turtle has at least one free slot
@@ -226,9 +231,12 @@ function main()
 	--determine start height, return to this height later
 	local startHeight = plumbDepth(ids[1])
 
+	--try to keep tabs on where we are,
+	---this will help with fault tolerance later on
 	locate()
 	orient()
 
+	--do the digging
 	local iterations = findNumIterations()
 	for i=1,iterations do
 		print("Step:",i,"/",iterations)
@@ -239,6 +247,7 @@ function main()
 		locate()
 	end
 
+	--return to start height
 	local endHeight = plumbDepth()
 	local heightToClimb = startHeight - endHeight
 	print("Climbing:",heightToClimb)
