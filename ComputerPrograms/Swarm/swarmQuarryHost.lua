@@ -21,10 +21,11 @@ local inventories = {}
 
 --init location data
 for i=1,#ids do
-	locations[ids[i]] = {0,0,0}
-	orientations[ids[i]] = 0
-	fuelLevels[ids[i]] = 0
-	inventories[ids[i]] = {}
+	local t = ids[i]
+	locations[target] = {0,0,0}
+	orientations[target] = 0
+	fuelLevels[target] = 0
+	inventories[target] = {}
 end
 
 --set protocol
