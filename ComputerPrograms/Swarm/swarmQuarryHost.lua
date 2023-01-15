@@ -251,8 +251,9 @@ function main()
 	end
 
 	--return to start height
-	local endHeight = plumbDepth()
-	local heightToClimb = startHeight - endHeight
+	-- local endHeight = plumbDepth()
+	-- local heightToClimb = startHeight - endHeight
+	local heightToClimb = startHeight --this is a workaround for the gps issue
 	print("Climbing:",heightToClimb)
 	for i=1,heightToClimb do
 		attackUp()

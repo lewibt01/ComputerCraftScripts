@@ -11,4 +11,5 @@ APIs/Swarm/gpsWrapper.lua:/api/gpsWrapper.lua
 ComputerPrograms/Swarm/swarmCMD.lua:/swarm/swarmCMD.lua
 ComputerPrograms/Swarm/swarmQuarryHost.lua:/swarm/quarryHost.lua
 ComputerPrograms/Swarm/broadcastTest.lua:/swarm/broadcastTest.lua
+ComputerPrograms/Swarm/gpsTest.lua:/swarm/gpsTest.lua
 ComputerPrograms/gitSetup.lua:/computerSetup.lua

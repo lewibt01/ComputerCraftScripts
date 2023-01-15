@@ -16,3 +16,4 @@ TurtlePrograms/lineMiner.lua:/home/lineMiner.lua
 TurtlePrograms/Swarm/swarmClient.lua:/swarm/client.lua
 TurtlePrograms/Swarm/swarmTurtleStartup.lua:/startup.lua
 TurtlePrograms/Swarm/swarmGitSetup.lua:/swarmSetup.lua
+TurtlePrograms/Swarm/gpsTest.lua:/swarm/gpsTest.lua
