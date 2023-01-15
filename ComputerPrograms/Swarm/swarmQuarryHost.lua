@@ -231,7 +231,7 @@ function main()
 	print("Starting quarry")
 
 	--determine start height, return to this height later
-	local startHeight = plumbDepth(ids[1])
+	local startHeight = plumbDepth()
 
 	--try to keep tabs on where we are,
 	---this will help with fault tolerance later on
