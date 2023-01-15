@@ -168,7 +168,7 @@ end
 
 function findNumIterations()
 	local depth = plumbDepth()
-	return math.floor(depth / 3)
+	return math.floor(depth / 2)
 end
 
 --ensure the turtle has at least one free slot
