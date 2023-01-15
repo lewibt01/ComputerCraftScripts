@@ -217,7 +217,7 @@ end
 function digForwardStep()
 	for i=1,16 do
 		dig()
-		digUp()
+		-- digUp()
 		digDown()
 		forward()
 	end
