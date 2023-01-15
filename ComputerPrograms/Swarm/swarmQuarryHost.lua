@@ -192,6 +192,7 @@ end
 
 function dumpInventory()
 	select(16) --reserved slot for dump chest
+	digUp()
 	placeUp() --place dump chest above
 
 	for i=1,14 do
