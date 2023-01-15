@@ -237,7 +237,7 @@ function main()
 
 	--try to keep tabs on where we are,
 	---this will help with fault tolerance later on
-	locate()
+	-- locate()
 	orient()
 
 	--do the digging
@@ -248,7 +248,7 @@ function main()
 		digForwardStep()
 		rotateStep()
 		dumpInventory()
-		locate()
+		-- locate()
 	end
 
 	--return to start height

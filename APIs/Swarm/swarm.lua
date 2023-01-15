@@ -44,7 +44,14 @@ function s.distributeCommand(idList,command)
 			
 			--if we have something, unserialize it
 			result = textutils.unserialize(result)
-			print(result)
+
+			if(type(result) == type({})) then
+				local tmp = ""
+				for k,v in pairs(result) do 
+					tmp = tmp..tostring(v)
+				end
+			else
+				print(result)
 		else
 			print("Failed to get response from "..idList[i])
 		end
