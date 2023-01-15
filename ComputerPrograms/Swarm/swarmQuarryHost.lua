@@ -22,7 +22,7 @@ local inventories = {}
 --init location data
 for i=1,#ids do
 	local t = ids[i]
-	locations[t] = {0,0,0}
+	locations[t] = {0,64,0} --undo this hardcoding later once gps decides to work
 	orientations[t] = 0
 	fuelLevels[t] = 0
 	inventories[t] = {}
@@ -140,7 +140,7 @@ end
 --[[Aggregate Functions]]
 function test()
 	--init
-	locate()
+	--locate()
 	orient()
 
 	--get turtles into position
@@ -162,9 +162,7 @@ end
 
 function plumbDepth()
 	local target = ids[1]
-
 	local y = locations[target][2] - 1
-
 	return y
 end
 
