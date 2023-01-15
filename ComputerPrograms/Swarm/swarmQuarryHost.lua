@@ -162,7 +162,6 @@ end
 
 function plumbDepth()
 	local target = ids[1]
-	debug(table.concat(locations[target]))
 
 	local y = locations[target][2] - 1
 
