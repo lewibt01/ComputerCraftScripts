@@ -213,7 +213,7 @@ function digDownStep()
 	--adding a third makes the quarry more efficient, but makes it less resilient to falling blocks
 end
 
-function digFowrardStep()
+function digForwardStep()
 	for i=1,16 do
 		dig()
 		digUp()
@@ -223,8 +223,8 @@ function digFowrardStep()
 end
 
 function rotateStep()
-	rotateRight()
-	rotateRight()
+	turnRight()
+	turnRight()
 end
 
 function main()
