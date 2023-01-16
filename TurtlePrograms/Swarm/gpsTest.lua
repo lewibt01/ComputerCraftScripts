@@ -6,7 +6,11 @@ s = require("swarm")
 
 peripheral.find("modem",rednet.open)
 
-reuslt = rednet.send(swarmHost,textUtils.serialize("ping"),"gpsTest")
+local msg = textutils.serialize({gps.locate()})
+print("Attempting to send:",msg)
+
+result = rednet.send(swarmHost,msg,"gpsTest")
+
 print(result)
 
-peripheral.find("modem",rednet.open)
+peripheral.find("modem",rednet.close)
