@@ -125,6 +125,10 @@ function attackDown()
 	s.distributeCommand(ids,"attackDown")
 end
 
+function refuel()
+	s.distributeCommand(ids,"refuel")
+end
+
 function select(n)
 	local tmp = n % 17 --not the most accurate but close enough
 	s.distributeCommand(ids,"select "..tmp)
@@ -203,6 +207,37 @@ function dumpInventory()
 	select(16)
 	digUp()
 	select(1)
+end
+
+function refuelStep()
+	--clear the block above the turtle
+	digUp()
+
+	--place the dump chest to empty a slot for fuel
+	select(16)
+	placeUp()
+
+	--dump the first slot
+	select(1)
+	dropUp()
+
+	--recollect the dump chest
+	select(16)
+	digUp()
+
+	--place down the fuel chest and retrieve some fuel
+	select(15)
+	placeUp()
+	select(1)
+	suckUp()
+
+	for i=1,4 do
+		refuel()
+	end
+
+	--retrieve the fuel chest
+	select(15)
+	digUp()
 end
 
 --digging steps
