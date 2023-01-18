@@ -17,7 +17,7 @@ if not modules.hasModule("plethora:introspection") then error("Must have an intr
 if not modules.hasModule("plethora:kinetic", 0) then error("Must have a kinetic agument", 0) end
 
 --- We run several loop at once, to ensure that various components do not delay each other.
-local meta = {}
+local meta = modules.getMetaOwner()
 local hover = false
 parallel.waitForAny(
 	--- This loop just pulls user input. It handles a couple of function keys, as well as
