@@ -34,17 +34,17 @@ parallel.waitForAny(
 			elseif event == "key" and key == keys.p then
 				-- The P key launches you a little into the air.
 				modules.launch(0, -90, 1)
-			elseif event == "key" and key == keys.h then
-				-- The h key launches you in whatever direction you are looking.
+			elseif event == "key" and key == keys.g then
+				-- The g key launches you in whatever direction you are looking.
 				modules.launch(meta.yaw, meta.pitch, 3)
-			elseif event == "key" and key == keys.k then
-				-- Holding the K key enables "hover" mode. We disable it when it is released.
-				if not hover then
-					hover = true
-					os.queueEvent("hover")
-				end
-			elseif event == "key_up" and key == keys.k then
-				hover = false
+			-- elseif event == "key" and key == keys.k then
+			-- 	-- Holding the K key enables "hover" mode. We disable it when it is released.
+			-- 	if not hover then
+			-- 		hover = true
+			-- 		os.queueEvent("hover")
+			-- 	end
+			-- elseif event == "key_up" and key == keys.k then
+			-- 	hover = false
 			end
 		end
 	end,
@@ -57,26 +57,26 @@ parallel.waitForAny(
 	end,
 	--- If we are hovering then attempt to catapult us back into air, with sufficient velocity to
 	--- just counteract gravity.
-	function()
-		while true do
-			if hover then
-				-- We calculate the required motion we need to take
-				local mY = meta.motionY
-				mY = (mY - 0.138) / 0.8
+	-- function()
+	-- 	while true do
+	-- 		if hover then
+	-- 			-- We calculate the required motion we need to take
+	-- 			local mY = meta.motionY
+	-- 			mY = (mY - 0.138) / 0.8
 
-				-- If it is sufficiently large then we fire ourselves in that direction.
-				if mY > 0.5 or mY < 0 then
-					local sign = 1
-					if mY < 0 then sign = -1 end
-					modules.launch(0, 90 * sign, math.min(4, math.abs(mY)))
-				else
-					sleep(0)
-				end
-			else
-				os.pullEvent("hover")
-			end
-		end
-	end,
+	-- 			-- If it is sufficiently large then we fire ourselves in that direction.
+	-- 			if mY > 0.5 or mY < 0 then
+	-- 				local sign = 1
+	-- 				if mY < 0 then sign = -1 end
+	-- 				modules.launch(0, 90 * sign, math.min(4, math.abs(mY)))
+	-- 			else
+	-- 				sleep(0)
+	-- 			end
+	-- 		else
+	-- 			os.pullEvent("hover")
+	-- 		end
+	-- 	end
+	-- end,
 	--- If we can detect a block below us, and we're falling sufficiently fast, then attempt to slow our fall. This
 	---needs to react as fast as possible, so we can't call many peripheral methods here.
 	function()
