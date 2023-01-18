@@ -28,7 +28,7 @@ function safeFallLoop()
 			local block = blocks[1 + (8 + (8 + y)*17 + 8*17^2)]
 			if(block.name == "minecraft:air") then 
 				if(meta.motionY < -0.3) then
-					modules.launch(0,-90,math.min(4,meta.motionY / -0.5))
+					neural.launch(0,-90,math.min(4,meta.motionY / -0.5))
 				end
 				break
 			end
