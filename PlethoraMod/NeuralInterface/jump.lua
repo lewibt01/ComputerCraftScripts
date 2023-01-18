@@ -34,8 +34,8 @@ parallel.waitForAny(
 			elseif event == "key" and key == keys.p then
 				-- The P key launches you a little into the air.
 				modules.launch(0, -90, 1)
-			elseif event == "key" and key == keys.g then
-				-- The g key launches you in whatever direction you are looking.
+			elseif event == "key" and key == keys.h then
+				-- The h key launches you in whatever direction you are looking.
 				modules.launch(meta.yaw, meta.pitch, 3)
 			elseif event == "key" and key == keys.k then
 				-- Holding the K key enables "hover" mode. We disable it when it is released.
