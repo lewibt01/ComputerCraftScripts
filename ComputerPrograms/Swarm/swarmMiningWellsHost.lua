@@ -168,6 +168,9 @@ function refuelStep()
 		refuel()
 	end
 
+	--put the excess fuel back
+	dropUp()
+
 	--retrieve the fuel chest
 	select(15)
 	digUp()
@@ -188,3 +191,47 @@ function dumpInventory()
 	select(1)
 end
 
+function setupMiningWell()
+	--place dump chest
+	up()
+	select(16)
+	place()
+
+	--place mining well
+	down()
+	select(15)
+	place()
+
+	--place power cell
+	back()
+	select(14)
+	place()
+end
+
+--meant to be called immediately after setup
+function teardownMiningWell()
+	--reclaim power cell
+	select(14)
+	dig()
+
+	--reclaim mining well
+	select(15)
+	forward()
+	dig()
+
+	--reclaim dump chest
+	select(16)
+	up()
+	dig()
+
+	--return to original state
+	down()
+end
+
+--[[Main Execution]]
+
+function main()
+	while(true) do
+		
+	end
+end
