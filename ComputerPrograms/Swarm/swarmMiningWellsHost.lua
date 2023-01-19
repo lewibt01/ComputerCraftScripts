@@ -231,7 +231,14 @@ end
 --[[Main Execution]]
 
 function main()
-	while(true) do
-		
+	orient()
+
+	for i=1,1000 do
+		print("Iteration",i)
+		setupMiningWell()
+		os.sleep(5)
+		teardownMiningWell()
+		forward()
+		turtle.forward() --move the host forward with the swarm
 	end
 end
