@@ -4,7 +4,7 @@ s = require("swarm")
 t = require("tableUtils")
 n = require("numberUtils")
 
-local debugFlag = false
+local debugFlag = true
 local function debug(...)
 	if(debugFlag) then
 		print(...)
@@ -44,6 +44,13 @@ end
 function locate()
 	for i=1,#ids do
 		local target = ids[i]
+		local result = run(target,"locate")
+
+		if(type(result) == "table") then
+			debug(table.concat(result,","))
+		else
+			debug(result)
+		end
 		locations[target] = run(target,"locate")
 	end
 end
