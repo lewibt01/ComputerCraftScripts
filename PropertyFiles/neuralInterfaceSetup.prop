@@ -8,6 +8,6 @@ APIs/numberUtils.lua:/api/numberUtils.lua
 APIs/commandTranslate.lua:/api/commandTranslate.lua
 APIs/Swarm/swarm.lua:/api/swarm.lua
 APIs/Swarm/gpsWrapper.lua:/api/gpsWrapper.lua
-PlethoraMod/NeuralInterface/jump.lua:/startup/jump.lua
-PlethoraMod/NeuralInterface/jump.lua:/startup/unsafeJump.lua
+PlethoraMod/NeuralInterface/jump.lua:/home/jump.lua
+PlethoraMod/NeuralInterface/unsafeJump.lua:/startup/unsafeJump.lua
 PlethoraMod/NeuralInterface/neuralInterfaceGitSetup.lua:/neuralSetup.lua
