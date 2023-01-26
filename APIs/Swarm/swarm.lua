@@ -45,7 +45,11 @@ function s.distributeCommand(idList,command)
 			--if we have something, unserialize it
 			result = textutils.unserialize(result)
 
-			print(result)
+			if(type(result) == "table") then
+				print(table.concat(result,","))
+			else
+				print(result)
+			end
 		else
 			print("Failed to get response from "..idList[i])
 		end
