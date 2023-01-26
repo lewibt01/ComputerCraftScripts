@@ -23,6 +23,102 @@ local protocol = "swarm:chunkMiner"
 rednet.open("left")
 local running = true
 
+--[[Helper Functions]]
+function respond(data)
+	local resp = textutils.serialize(data)
+	rednet.send(hostId,resp,protocol)
+end
+
+--[[Macros]]
+--make execution of the dig and digDown commands local to speed up distribution of commands
+function digDownForward()
+	local results = {}
+	table.insert(results,turtle.dig())
+	table.insert(results,turtle.digDown())
+
+	--if one of them returned true, we'll call it a success
+	for i=1,#results do
+		if(results[i]) then
+			return true
+		end
+	end
+
+	return false
+end
+
+--dump slots 1-14 into an ender chest stored in 16
+function dumpInventory()
+	turtle.select(16) --reserved slot for dump chest
+	turtle.digUp()
+	turtle.placeUp() --place dump chest above
+
+	local verification = {}
+	for i=1,14 do
+		turtle.select(i)
+		turtle.dropUp()
+		verification[i] = turtle.getItemCount(i) == 0
+	end
+
+	turtle.select(16)
+	turtle.digUp()
+	turtle.select(1)
+
+	for i=1,#verification do
+		if(not verification[i]) then
+			respond(false)
+		end
+	end
+
+	respond(true)
+end
+
+function refuelFromChest()
+	local startingFuel = turtle.getFuelLevel()
+
+	--clear the block above the turtle
+	turtle.digUp()
+
+	--place the dump chest to empty a slot for fuel
+	turtle.select(16)
+	turtle.placeUp()
+
+	--dump the first slot
+	turtle.select(1)
+	turtle.dropUp()
+
+	--recollect the dump chest
+	turtle.select(16)
+	turtle.digUp()
+
+	--place down the fuel chest and retrieve some fuel
+	turtle.select(15)
+	turtle.placeUp()
+	turtle.select(1)
+	turtle.suckUp(4) -- pull out 4 items from the chest
+
+	for i=1,4 do
+		turtle.refuel()
+	end
+
+	local newFuel = turtle.getFuelLevel()
+
+	--retrieve the fuel chest
+	turtle.select(15)
+	turtle.digUp()
+
+	--ensure we have more fuel than when we started
+	result = startingFuel < newFuel
+	respond(result)
+end
+
+function locate()
+	x,y,z = gps.locate()
+	respond({x,y,z})
+	-- result = textutils.serialize({x,y,z})
+	-- -- result = "{"..x..","..y..","..z.."}"
+	-- rednet.send(hostId,result,protocol)
+end
+
 --backup
 -- while(running) do
 -- 	local id,msg = rednet.receive(protocol,60) --large timeout to prevent infinite hang
@@ -100,24 +196,32 @@ while(running) do
 	if(msg ~= nil) then
 		--short circuit if told to stop
 		if(msg == "stop") then
-			print("Stopping...")
+			print("Stopping.")
 			running = false
-			result = "stopped"
-			rednet.send(hostId,result,protocol)
+			respond("stopped")
+			-- result = textutils.serialize("stopped")
+			-- rednet.send(hostId,result,protocol)
 			break
 
 		--auto updating for ease of use
 		elseif(msg == "update") then
-			result = "updating"
-			rednet.send(hostId,result,protocol)
+			respond("updating")
+			-- result = textutils.serialize("updating")
+			-- rednet.send(hostId,result,protocol)
 			shell.run("/swarmSetup.lua")
 			break
 
-		elseif(msg == "locate") then	
-			x,y,z = gps.locate()		
-			result = textutils.serialize({x,y,z})
-			-- result = "{"..x..","..y..","..z.."}"
-			rednet.send(hostId,result,protocol)
+		elseif(msg == "locate") then
+			locate()
+
+		elseif(msg == "dumpInventory") then
+			dumpInventory()
+
+		elseif(msg == "refuelFromChest") then
+			refuelFromChest()
+
+		elseif(msg == "digDownForward") then
+			digDownForward()
 
 		else
 			--at this point we could have potential arguments, so more processing is needed

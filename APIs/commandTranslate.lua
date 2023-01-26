@@ -79,7 +79,7 @@ function cmd.translate(input,...)
     c["setComputerLabel"] = os.setComputerLabel
     c["getComputertID"] = os.getComputerID
 
-    c["locate"] = g.locate --this is a wrapped function, not the real one.
+    -- c["locate"] = g.locate --this is a wrapped function, not the real one.
     c["orient"] = g.orient --gps helper for finding orientation based on movement
 
     if c[input] == nil then

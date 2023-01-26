@@ -14,12 +14,14 @@ end
 --[[Setup]]
 local protocol = "swarm:chunkMiner"
 local ids = {3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18}
+local criticalFuelLevel = 1000
 local locations = {}
 local orientations = {}
 local fuelLevels = {}
 local inventories = {}
 
---init location data
+
+--init starting data
 for i=1,#ids do
 	local t = ids[i]
 	locations[t] = {0,70,0} --undo this hardcoding later once gps decides to work
@@ -144,7 +146,7 @@ end
 --[[Aggregate Functions]]
 function test()
 	--init
-	--locate()
+	locate()
 	orient()
 
 	--get turtles into position
@@ -160,8 +162,19 @@ function test()
 	placeDown()
 end
 
+-- returns whether or not fuel levels are acceptable
 function checkFuel()
+	--get the most up-to-date info
+	getFuelLevel()
 
+	for i=1,#ids do
+		local target = ids[i]
+		if(fuelLevels[target] < criticalFuelLevel) then
+			return false
+		end
+	end
+
+	return true
 end
 
 function plumbDepth()
@@ -184,60 +197,69 @@ function hasFreeSlot(target)
 	end
 
 	--check for at least one free slot, 
-	local hasFreeSlot = false
+	local freeSlotAvailable = false
 	for i=1,#slotIsFree do
 		if(slotIsFree[i]) then
-			hasFreeSlot = true
+			freeSlotAvailable = true
 		end
 	end
 
-	return hasFreeSlot
+	return freeSlotAvailable
 end
 
-function dumpInventory()
-	select(16) --reserved slot for dump chest
-	digUp()
-	placeUp() --place dump chest above
+-- baked into turtle client now (as dumpInventory), kept as a backup
+-- function dumpInventory()
+-- 	select(16) --reserved slot for dump chest
+-- 	digUp()
+-- 	placeUp() --place dump chest above
 
-	for i=1,14 do
-		select(i)
-		dropUp()
-	end
+-- 	for i=1,14 do
+-- 		select(i)
+-- 		dropUp()
+-- 	end
 
-	select(16)
-	digUp()
-	select(1)
-end
+-- 	select(16)
+-- 	digUp()
+-- 	select(1)
+-- end
 
+-- baked into turtle client now (as refuelAll), kept as a backup
+-- function refuelStep()
+-- 	--clear the block above the turtle
+-- 	digUp()
+
+-- 	--place the dump chest to empty a slot for fuel
+-- 	select(16)
+-- 	placeUp()
+
+-- 	--dump the first slot
+-- 	select(1)
+-- 	dropUp()
+
+-- 	--recollect the dump chest
+-- 	select(16)
+-- 	digUp()
+
+-- 	--place down the fuel chest and retrieve some fuel
+-- 	select(15)
+-- 	placeUp()
+-- 	select(1)
+-- 	suckUp()
+
+-- 	for i=1,4 do
+-- 		refuel()
+-- 	end
+
+-- 	--retrieve the fuel chest
+-- 	select(15)
+-- 	digUp()
+-- end
+
+--refuel the turtles if they need it
 function refuelStep()
-	--clear the block above the turtle
-	digUp()
-
-	--place the dump chest to empty a slot for fuel
-	select(16)
-	placeUp()
-
-	--dump the first slot
-	select(1)
-	dropUp()
-
-	--recollect the dump chest
-	select(16)
-	digUp()
-
-	--place down the fuel chest and retrieve some fuel
-	select(15)
-	placeUp()
-	select(1)
-	suckUp()
-
-	for i=1,4 do
-		refuel()
+	if(not checkFuel()) then
+		s.distributeCommand(ids,"refuelAll")
 	end
-
-	--retrieve the fuel chest
-	select(15)
-	digUp()
 end
 
 --digging steps
@@ -246,7 +268,7 @@ function digDownStep()
 	down()
 	digDown()
 	down()
-	--adding a third makes the quarry more efficient, but makes it less resilient to falling blocks
+	--adding a third iteration makes the quarry more efficient, but makes it less resilient to falling blocks
 end
 
 function digForwardStep()
@@ -266,13 +288,13 @@ end
 function main()
 	print("Starting quarry")
 
-	--determine start height, return to this height later
-	local startHeight = plumbDepth()
-
 	--try to keep tabs on where we are,
 	---this will help with fault tolerance later on
-	-- locate()
+	locate()
 	orient()
+
+	--determine start height, return to this height later
+	local startHeight = plumbDepth()
 
 	--do the digging
 	local iterations = findNumIterations()
@@ -282,6 +304,7 @@ function main()
 		digForwardStep()
 		rotateStep()
 		dumpInventory()
+		refuelStep()
 		-- locate()
 	end
 
