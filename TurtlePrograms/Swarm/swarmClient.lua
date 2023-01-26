@@ -118,7 +118,6 @@ while(running) do
 			result = textutils.serialize({x,y,z})
 			-- result = "{"..x..","..y..","..z.."}"
 			rednet.send(hostId,result,protocol)
-			break
 
 		else
 			--at this point we could have potential arguments, so more processing is needed
