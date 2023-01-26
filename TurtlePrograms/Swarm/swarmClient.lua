@@ -113,12 +113,12 @@ while(running) do
 			shell.run("/swarmSetup.lua")
 			break
 
-		-- elseif(msg == "locate") then	
-		-- 	x,y,z = gps.locate()		
-		-- 	-- result = textutils.serialize({gps.locate()})
-		-- 	result = "{"..x..","..y..","..z.."}"
-		-- 	rednet.send(hostId,result,protocol)
-		-- 	break
+		elseif(msg == "locate") then	
+			x,y,z = gps.locate()		
+			result = textutils.serialize({x,y,z})
+			-- result = "{"..x..","..y..","..z.."}"
+			rednet.send(hostId,result,protocol)
+			break
 
 		else
 			--at this point we could have potential arguments, so more processing is needed
