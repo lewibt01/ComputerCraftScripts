@@ -47,9 +47,9 @@ function locate()
 		local result = run(target,"locate")
 
 		if(type(result) == "table") then
-			debug(table.concat(result,","))
+			debug("locate():",table.concat(result,","))
 		else
-			debug(result)
+			debug("locate():",result)
 		end
 		locations[target] = run(target,"locate")
 	end
