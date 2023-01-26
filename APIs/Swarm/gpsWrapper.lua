@@ -5,6 +5,8 @@ g = {}
 
 --wrap the gps function so it returns a table of results instead of 3 return values
 function g.locate()
+	-- local x, y, z = gps.locate()
+	-- local result = {x,y,z}
 	return {gps.locate()}
 end
 
