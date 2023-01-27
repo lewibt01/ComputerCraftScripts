@@ -3,13 +3,18 @@ package.path = package.path..";/api/?.lua"
 s = require("swarm")
 t = require("tableUtils")
 n = require("numberUtils")
+l = require("logging") --hell yeah, actual logging in computercraft. In your face devs
+local logFileName = "swarmQuarry.txt"
 
-local debugFlag = true
-local function debug(...)
-	if(debugFlag) then
-		print(...)
-	end
-end
+-- shitty print logging aint gonna cut it... use real log files
+-- local debugFlag = true
+-- local function debug(...)
+-- 	if(debugFlag) then
+-- 		print(...)
+-- 	end
+-- end
+
+
 
 --[[Setup]]
 local protocol = "swarm:chunkMiner"
@@ -38,6 +43,7 @@ peripheral.find("modem",rednet.open)
 
 --[[Functions]]
 function run(id,command)
+	l.debug("run("..tostring(id)..","..command..")",logFileName)
 	return s.sendCommand(id,command,s.protocol)
 end
 
@@ -47,15 +53,17 @@ function locate()
 		local result = run(target,"locate")
 
 		if(type(result) == "table") then
-			debug("locate(table):",table.concat(result,","))
+			l.debug("locate(table):"..table.concat(result,","), logFileName)
 		else
-			debug("locate():",result)
+			l.debug("locate():"..result, logFileName)
 		end
+
 		locations[target] = run(target,"locate")
 	end
 end
 
 function orient()
+	l.debug("orient()",logFileName)
 	for i=1,#ids do
 		local target = ids[i]
 		orientations[target] = run(target,"orient")
@@ -63,87 +71,108 @@ function orient()
 end
 
 function forward()
+	l.debug("forward()",logFileName)
 	s.distributeCommand(ids,"forward")
 end
 
 function back()
+	l.debug("back()",logFileName)
 	s.distributeCommand(ids,"back")
 end
 
 function up()
+	l.debug("up()",logFileName)
 	s.distributeCommand(ids,"up")
 end
 
 function down()
+	l.debug("down()",logFileName)
 	s.distributeCommand(ids,"down")
 end
 
 function turnLeft()
+	l.debug("turnLeft()",logFileName)
 	s.distributeCommand(ids,"turnLeft")
 end
 
 function turnRight()
+	l.debug("turnRight()",logFileName)
 	s.distributeCommand(ids,"turnRight")
 end
 
 function dig()
+	l.debug("dig()",logFileName)
 	s.distributeCommand(ids,"dig")
 end
 
 function digUp()
+	l.debug("digUp()",logFileName)
 	s.distributeCommand(ids,"digUp")
 end
 
 function digDown()
+	l.debug("digDown()",logFileName)
 	s.distributeCommand(ids,"digDown")
 end
 
 function place()
+	l.debug("place()",logFileName)
 	s.distributeCommand(ids,"place")
 end
 
 function placeUp()
+	l.debug("placeUp()",logFileName)
 	s.distributeCommand(ids,"placeUp")
 end
 
 function placeDown()
+	l.debug("placeDown()",logFileName)
 	s.distributeCommand(ids,"placeDown")
 end
 
 function drop()
+	l.debug("drop()",logFileName)
 	s.distributeCommand(ids,"drop")
 end
 
 function dropDwon()
+	l.debug("dropDown()",logFileName)
 	s.distributeCommand(ids,"dropDown")
 end
 
 function dropUp()
+	l.debug("dropUp()",logFileName)
 	s.distributeCommand(ids,"dropUp")
 end
 
 function attack()
+	l.debug("attack()",logFileName)
 	s.distributeCommand(ids,"attack")
 end
 
 function attackUp()
+	l.debug("attackUp()",logFileName)
 	s.distributeCommand(ids,"attackUp")
 end
 
 function attackDown()
+	l.debug("attackDown()",logFileName)
 	s.distributeCommand(ids,"attackDown")
 end
 
 function refuel()
+	l.debug("refuel()",logFileName)
 	s.distributeCommand(ids,"refuel")
 end
 
 function select(n)
+	l.debug("select("..tostring(n)..")",logFileName)
 	local tmp = n % 17 --not the most accurate but close enough
 	s.distributeCommand(ids,"select "..tmp)
 end
 
 function getFuelLevel()
+	l.debug("getFuelLevel()",logFileName)
 	for i=1,#ids do
 		local target = ids[i]
 		fuelLevels[target] = run(target,"getFuelLevel")
@@ -152,6 +181,7 @@ end
 
 --[[Aggregate Functions]]
 function test()
+	l.debug("test()",logFileName)
 	--init
 	locate()
 	orient()
@@ -171,6 +201,7 @@ end
 
 -- returns whether or not fuel levels are acceptable
 function checkFuel()
+	l.debug("checkFuel()",logFileName)
 	--get the most up-to-date info
 	getFuelLevel()
 
@@ -185,18 +216,29 @@ function checkFuel()
 end
 
 function plumbDepth()
+	l.debug("plumbDepth()",logFileName)
+
 	local target = ids[1]
+	l.info("target="..tostring(target),logFileName)
+
 	local y = locations[target][2] - 1
+	l.info("y="..tostring(y),logFileName)
+
 	return y
 end
 
 function findNumIterations()
+	l.debug("findNumIterations()",logFileName)
 	local depth = plumbDepth()
-	return math.floor(depth / 2)
+	local numIters = math.floor(depth / 2)
+	l.info("Will run for "..tostring(numIters).." iterations",logFileName)
+
+	return numIters
 end
 
 --ensure the turtle has at least one free slot
 function hasFreeSlot(target)
+	l.debug("hasFreeSlot("..tostring(target)..")",logFileName)
 	local slotIsFree = {}
 	for i=1,14 do
 		run(target, "select "..i)
@@ -264,6 +306,7 @@ end
 
 --refuel the turtles if they need it
 function refuelStep()
+	l.debug("refuelStep()",logFileName)
 	if(not checkFuel()) then
 		s.distributeCommand(ids,"refuelAll")
 	end
@@ -271,6 +314,7 @@ end
 
 --digging steps
 function digDownStep()
+	l.debug("digDownStep()",logFileName)
 	digDown()
 	down()
 	digDown()
@@ -279,7 +323,8 @@ function digDownStep()
 end
 
 function digForwardStep()
-	for i=1,16 do
+	l.debug("digForwardStep()",logFileName)
+	for i=1,15 do
 		dig()
 		-- digUp()
 		digDown()
@@ -288,12 +333,14 @@ function digForwardStep()
 end
 
 function rotateStep()
+	l.debug("rotateStep()",logFileName)
 	turnRight()
 	turnRight()
 end
 
 function main()
 	print("Starting quarry")
+	l.debug("main()",logFileName)
 
 	--try to keep tabs on where we are,
 	---this will help with fault tolerance later on
@@ -302,11 +349,13 @@ function main()
 
 	--determine start height, return to this height later
 	local startHeight = plumbDepth()
+	l.info("Starting height is "..tostring(startHeight),logFileName)
 
 	--do the digging
 	local iterations = findNumIterations()
 	for i=1,iterations do
 		print("Step:",i,"/",iterations)
+		l.info("Iteration #: "..tostring(i).."/"..tostring(iterations),logFileName)
 		digDownStep()
 		digForwardStep()
 		rotateStep()
