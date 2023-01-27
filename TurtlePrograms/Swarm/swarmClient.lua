@@ -28,7 +28,11 @@ local running = true
 
 --[[Helper Functions]]
 function respond(data)
-	l.debug("respond("..tostring(data)..")",logFileName)
+	if(type(data) == "table") then
+		l.debug("respond({"..table.concat(data,",").."})",logFileName)
+	else
+		l.debug("respond("..tostring(data)..")",logFileName)
+	end
 	local resp = textutils.serialize(data)
 	rednet.send(hostId,resp,protocol)
 end
