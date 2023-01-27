@@ -7,19 +7,6 @@ l = require("logging")
 local logFileName = "swarmClient.txt"
 l.wipe(logFileName) --ensure log file is fresh
 
--- local debugFlag = false
--- local function debug(...)
--- 	if(debugFlag) then
--- 		print(...)
--- 	end
--- end
-
--- local function debugIO(...)
--- 	if(debugFlag) then
--- 		io.write(...)
--- 	end
--- end
-
 local hostId = 19
 local protocol = "swarm:chunkMiner"
 
@@ -251,7 +238,7 @@ while(running) do
 
 		else
 			--at this point we could have potential arguments, so more processing is needed
-			debug("msg:",msg)
+			l.debug("msg:"..msg,logFileName)
 			result = processCommand(msg)
 		end
 
