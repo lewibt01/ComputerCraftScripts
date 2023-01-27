@@ -169,7 +169,7 @@ function processArgs(commandString)
 		l.debug("\tpieces:"..table.concat(pieces,","),logFileName)
 		local cmdTable,args = t.split(pieces,2)
 		l.debug("\tcmdTable:",table.concat(cmdTable,","),logFileName)
-		l.debug("\targs:",table.concat(args,","))
+		l.debug("\targs:",table.concat(args,","),logFileName)
 		local command = cmdTable[1]
 
 		--convert numeric arguments to numbers
