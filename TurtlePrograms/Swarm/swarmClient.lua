@@ -220,16 +220,11 @@ while(running) do
 			print("Stopping.")
 			running = false
 			respond("stopped")
-			-- result = textutils.serialize("stopped")
-			-- rednet.send(hostId,result,protocol)
 			break
 
 		--auto updating for ease of use
 		elseif(msg == "update") then
-
 			respond("updating")
-			-- result = textutils.serialize("updating")
-			-- rednet.send(hostId,result,protocol)
 			shell.run("/swarmSetup.lua")
 			break
 
