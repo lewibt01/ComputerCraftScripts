@@ -222,6 +222,17 @@ function plumbDepth()
 	local target = ids[1]
 	l.info("target="..tostring(target),logFileName)
 
+	--heavy debug logging
+	for k,v in pairs do
+		if(type(v) == "table") then
+			l.debug("\t"..k..",{"..table.concat(v).."}",logFileName)
+		else
+			l.debug("\t"..k..","..v,logFileName)
+		end
+	end
+	
+	l.debug("locations[target]="..tostring(locations[target]),logFileName)
+
 	local y = locations[target][2] - 1
 	l.info("y="..tostring(y),logFileName)
 
