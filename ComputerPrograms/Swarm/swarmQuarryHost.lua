@@ -58,7 +58,7 @@ function locate()
 			l.debug("locate():"..result, logFileName)
 		end
 
-		locations[target] = run(target,"locate")
+		locations[target] = result --run(target,"locate")
 	end
 end
 
