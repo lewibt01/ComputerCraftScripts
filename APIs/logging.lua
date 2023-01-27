@@ -13,13 +13,6 @@ function l.init(fileName)
 	end
 end
 
---wipe a log file so the output is fresh
-function l.wipe(fileName)
-	local file = fs.open(l.fullPath(fileName),"w")
-	file.write("")
-	file.close()
-end
-
 function l.write(msg,fileName)
 	local logPath = l.fullPath(fileName)
 	local file = fs.open(logPath,"w")
@@ -32,6 +25,11 @@ function l.append(msg,fileName)
 	local file = fs.open(logPath,"a")
 	file.write(msg)
 	file.close()
+end
+
+--wipe a log file so the output is fresh
+function l.wipe(fileName)
+	l.write("",fileName)
 end
 
 --[[Main Functions]]

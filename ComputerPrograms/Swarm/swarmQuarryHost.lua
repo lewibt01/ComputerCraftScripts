@@ -5,6 +5,7 @@ t = require("tableUtils")
 n = require("numberUtils")
 l = require("logging") --hell yeah, actual logging in computercraft. In your face devs
 local logFileName = "swarmQuarry.txt"
+l.wipe(logFileName) --ensure the log file is fresh
 
 -- shitty print logging aint gonna cut it... use real log files
 -- local debugFlag = true

@@ -3,19 +3,22 @@ package.path = package.path..";/api/?.lua"
 cmd = require("commandTranslate")
 s = require("stringUtils")
 t = require("tableUtils")
+l = require("logging")
+local logFileName = "swarmClient.txt"
+l.wipe(logFileName) --ensure log file is fresh
 
-local debugFlag = false
-local function debug(...)
-	if(debugFlag) then
-		print(...)
-	end
-end
+-- local debugFlag = false
+-- local function debug(...)
+-- 	if(debugFlag) then
+-- 		print(...)
+-- 	end
+-- end
 
-local function debugIO(...)
-	if(debugFlag) then
-		io.write(...)
-	end
-end
+-- local function debugIO(...)
+-- 	if(debugFlag) then
+-- 		io.write(...)
+-- 	end
+-- end
 
 local hostId = 19
 local protocol = "swarm:chunkMiner"
@@ -25,6 +28,7 @@ local running = true
 
 --[[Helper Functions]]
 function respond(data)
+	l.debug("respond("..tostring(data)..")",logFileName)
 	local resp = textutils.serialize(data)
 	rednet.send(hostId,resp,protocol)
 end
@@ -32,6 +36,7 @@ end
 --[[Macros]]
 --make execution of the dig and digDown commands local to speed up distribution of commands
 function digDownForward()
+	l.debug("digDownForward()",logFileName)
 	local results = {}
 	table.insert(results,turtle.dig())
 	table.insert(results,turtle.digDown())
@@ -48,6 +53,8 @@ end
 
 --dump slots 1-14 into an ender chest stored in 16
 function dumpInventory()
+	l.debug("dumpInventory()",logFileName)
+
 	turtle.select(16) --reserved slot for dump chest
 	turtle.digUp()
 	turtle.placeUp() --place dump chest above
@@ -73,7 +80,9 @@ function dumpInventory()
 end
 
 function refuelFromChest()
+	l.debug("refuelFromChest()",logFileName)
 	local startingFuel = turtle.getFuelLevel()
+	l.info("Starting Fuel: "..tostring(startingFuel),logFileName)
 
 	--clear the block above the turtle
 	turtle.digUp()
@@ -101,6 +110,7 @@ function refuelFromChest()
 	end
 
 	local newFuel = turtle.getFuelLevel()
+	l.debug("Ending Fuel:"..tostring(newFuel),logFileName)
 
 	--retrieve the fuel chest
 	turtle.select(15)
@@ -112,6 +122,7 @@ function refuelFromChest()
 end
 
 function locate()
+	l.debug("locate()",logFileName)
 	local x,y,z = gps.locate()
 	local data = table.pack(x,y,z)
 	respond(data)
@@ -151,14 +162,14 @@ end
 
 --separate the arguments out of a commandstring, returning nil for the arguments if there arent any
 function processArgs(commandString)
-	debug("cmdStr:",commandString)
+	l.debug("processArgs("..commandString..")",logFileName)
 	--if we have args...
 	if(string.find(commandString," ")) then
 		local pieces = s.splitStr(commandString," ")
-		debug("\tpieces:",table.concat(pieces,","))
+		l.debug("\tpieces:"..table.concat(pieces,","),logFileName)
 		local cmdTable,args = t.split(pieces,2)
-		debug("\tcmdTable:",table.concat(cmdTable,","))
-		debug("\targs:",table.concat(args,","))
+		l.debug("\tcmdTable:",table.concat(cmdTable,","),logFileName)
+		l.debug("\targs:",table.concat(args,","))
 		local command = cmdTable[1]
 
 		--convert numeric arguments to numbers
@@ -167,12 +178,14 @@ function processArgs(commandString)
 		return command,args
 	--otherwise...
 	else
-		debug("No args: ",commandString)
+		l.info("No args: "..commandString)
 		return commandString,nil
 	end
 end
 
 function processCommand(commandString)
+	l.debug("processCommand("..commandString..")",logFileName)
+
 	local result = ""
 	local command,args = processArgs(commandString)
 
@@ -186,12 +199,15 @@ function processCommand(commandString)
 		result = "failed to execute"..commandString
 	end
 
+	l.debug("\t->"..tostring(result),logFileName)
 	print("->"..tostring(result))
 	return result
 end
 
 while(running) do
+	l.debug("Begin main loop",logFileName)
 	local id,msg = rednet.receive(protocol,60) --large timeout to prevent infinite hang
+	l.info("Received "..tostring(msg).." from ID:"..tostring(id),logFileName)
 	local result = ""
 
 	if(msg ~= nil) then
@@ -206,6 +222,7 @@ while(running) do
 
 		--auto updating for ease of use
 		elseif(msg == "update") then
+
 			respond("updating")
 			-- result = textutils.serialize("updating")
 			-- rednet.send(hostId,result,protocol)
