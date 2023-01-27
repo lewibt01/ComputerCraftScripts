@@ -112,8 +112,9 @@ function refuelFromChest()
 end
 
 function locate()
-	x,y,z = gps.locate()
-	respond({x,y,z})
+	local x,y,z = gps.locate()
+	local data = table.pack(x,y,z)
+	respond(data)
 	-- result = textutils.serialize({x,y,z})
 	-- -- result = "{"..x..","..y..","..z.."}"
 	-- rednet.send(hostId,result,protocol)
