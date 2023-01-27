@@ -1,19 +1,28 @@
+package.path = package.path..";/api/?.lua"
+
 local s = {}
 s.protocol = "swarm"
 s.ids = {}
 
+l = require("logging")
+local logFileName = "swarmAPI.txt"
+l.wipe(logFileName) --ensure log file is fresh
+
 --[[Registration Functions]]
 function s.register(id)
+	l.debug("register("..tostring(id)..")",logFileName)
 	if(s.ids[id] ~= true) then
 		s.ids[id] = true
 	end
 end
 
 function s.deregister(id)
+	l.debug("deregister("..tostring(id)..")",logFileName)
 	s.ids[id] = nil
 end
 
 function s.getRegistry()
+	l.debug("getRegistry()",logFileName)
 	local output = {}
 	for k,v in pairs(s.ids) do
 		table.insert(output,k)
@@ -23,6 +32,7 @@ function s.getRegistry()
 end
 
 function s.sendCommand(targetId,command)
+	l.debug("sendCommand("..tostring(targetId)..","..command..")",logFileName)
 	--attempt to open rednet if it isn't already
 	if(not rednet.isOpen()) then
 		peripheral.find("modem",rednet.open)
@@ -35,6 +45,7 @@ function s.sendCommand(targetId,command)
 end
 
 function s.distributeCommand(idList,command)
+	l.debug("distributeCommand("..table.concat(idList,",")..","..command..")",logFileName)
 	for i=1,#idList do
 		local id,result = s.sendCommand(idList[i],command)
 
@@ -51,12 +62,14 @@ function s.distributeCommand(idList,command)
 				print(result)
 			end
 		else
+			l.error("Failed to get repsonse from "..idList[i],logFileName)
 			print("Failed to get response from "..idList[i])
 		end
 	end
 end
 
 function s.broadcastCommand(command)
+	l.debug("broadcastCommand("..command..")",logFileName)
 	local responses = {}
 	local coroutines = {}
 	rednet.broadcast(command,s.protocol)
