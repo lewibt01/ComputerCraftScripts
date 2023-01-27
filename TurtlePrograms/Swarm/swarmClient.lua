@@ -46,13 +46,16 @@ function digDownForward()
 	table.insert(results,turtle.digDown())
 
 	--if one of them returned true, we'll call it a success
+	local result = false
 	for i=1,#results do
 		if(results[i]) then
-			return true
+			result = true
+			break
 		end
 	end
 
-	return false
+	print("CMD:digDownForward","->",result)
+	return result
 end
 
 --dump slots 1-14 into an ender chest stored in 16
@@ -74,13 +77,16 @@ function dumpInventory()
 	turtle.digUp()
 	turtle.select(1)
 
+	local result = true
 	for i=1,#verification do
 		if(not verification[i]) then
-			respond(false)
+			result = false
+			break
 		end
 	end
 
-	respond(true)
+	print("CMD:dumpInventory","->",result)
+	respond(result)
 end
 
 function refuelFromChest()
@@ -122,6 +128,8 @@ function refuelFromChest()
 
 	--ensure we have more fuel than when we started
 	result = startingFuel < newFuel
+
+	print("CMD:refuelFromChest","->",result)
 	respond(result)
 end
 
@@ -129,6 +137,7 @@ function locate()
 	l.debug("locate()",logFileName)
 	local x,y,z = gps.locate()
 	local data = table.pack(x,y,z)
+	print("CMD:locate","->",data)
 	respond(data)
 	-- result = textutils.serialize({x,y,z})
 	-- -- result = "{"..x..","..y..","..z.."}"
