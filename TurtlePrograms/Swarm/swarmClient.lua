@@ -86,7 +86,7 @@ function dumpInventory()
 	end
 
 	print("CMD:dumpInventory","->",result)
-	respond(result)
+	return result
 end
 
 function refuelFromChest()
@@ -130,7 +130,7 @@ function refuelFromChest()
 	result = startingFuel < newFuel
 
 	print("CMD:refuelFromChest","->",result)
-	respond(result)
+	return result
 end
 
 function locate()
@@ -138,7 +138,7 @@ function locate()
 	local x,y,z = gps.locate()
 	local data = table.pack(x,y,z)
 	print("CMD:locate","->",data)
-	respond(data)
+	return data
 	-- result = textutils.serialize({x,y,z})
 	-- -- result = "{"..x..","..y..","..z.."}"
 	-- rednet.send(hostId,result,protocol)
@@ -238,16 +238,16 @@ while(running) do
 			break
 
 		elseif(msg == "locate") then
-			locate()
+			result = locate()
 
 		elseif(msg == "dumpInventory") then
-			dumpInventory()
+			result = dumpInventory()
 
 		elseif(msg == "refuelFromChest") then
-			refuelFromChest()
+			result = refuelFromChest()
 
 		elseif(msg == "digDownForward") then
-			digDownForward()
+			result = digDownForward()
 
 		else
 			--at this point we could have potential arguments, so more processing is needed
@@ -256,7 +256,8 @@ while(running) do
 		end
 
 		--respond to the command
-		rednet.send(hostId,textutils.serialize(result),protocol)
+		-- rednet.send(hostId,textutils.serialize(result),protocol)
+		respond(result)
 	end
 	io.write(".") --ouptut to show heartbeat
 end

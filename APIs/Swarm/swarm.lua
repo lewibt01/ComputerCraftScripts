@@ -45,13 +45,12 @@ function s.sendCommand(targetId,command)
 end
 
 function s.distributeCommand(idList,command)
-	l.debug("distributeCommand("..table.concat(idList,",")..","..command..")",logFileName)
+	l.debug("distributeCommand({"..table.concat(idList,",").."},"..command..")",logFileName)
 	for i=1,#idList do
 		local id,result = s.sendCommand(idList[i],command)
 
 		if(result ~= nil) then
-			io.write(id)
-			io.write(":")
+			io.write(id,":")
 			
 			--if we have something, unserialize it
 			result = textutils.unserialize(result)
