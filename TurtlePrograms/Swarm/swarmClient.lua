@@ -178,7 +178,7 @@ function processArgs(commandString)
 		return command,args
 	--otherwise...
 	else
-		l.info("No args: "..commandString)
+		l.info("No args: "..commandString,logFileName)
 		return commandString,nil
 	end
 end
