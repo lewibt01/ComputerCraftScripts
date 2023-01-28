@@ -41,6 +41,7 @@ function s.sendCommand(targetId,command)
 	rednet.send(targetId,command,s.protocol)
 
 	local id,msg = rednet.receive(s.protocol,2)
+	msg = textutils.unserialize(msg)
 	return id,msg
 end
 
@@ -53,7 +54,7 @@ function s.distributeCommand(idList,command)
 			io.write(id,":")
 			
 			--if we have something, unserialize it
-			result = textutils.unserialize(result)
+			-- result = textutils.unserialize(result) --this should already be unserialized in sendCommand()
 
 			if(type(result) == "table") then
 				print(table.concat(result,","))
