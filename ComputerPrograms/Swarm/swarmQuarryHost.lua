@@ -51,7 +51,7 @@ end
 function locate()
 	for i=1,#ids do
 		local target = ids[i]
-		local result = run(target,"locate")
+		local id,result = run(target,"locate")
 
 		if(type(result) == "table") then
 			l.debug("locate(table):"..table.concat(result,","), logFileName)
@@ -67,7 +67,7 @@ function orient()
 	l.debug("orient()",logFileName)
 	for i=1,#ids do
 		local target = ids[i]
-		orientations[target] = run(target,"orient")
+		_, orientations[target] = run(target,"orient")
 	end
 end
 
@@ -176,7 +176,7 @@ function getFuelLevel()
 	l.debug("getFuelLevel()",logFileName)
 	for i=1,#ids do
 		local target = ids[i]
-		fuelLevels[target] = run(target,"getFuelLevel")
+		_, fuelLevels[target] = run(target,"getFuelLevel")
 	end
 end
 
@@ -254,7 +254,7 @@ function hasFreeSlot(target)
 	local slotIsFree = {}
 	for i=1,14 do
 		run(target, "select "..i)
-		slotIsFree[i] = (run(target,"getItemCount") == 0)
+		_, slotIsFree[i] = run(target,"getItemCount") == 0
 	end
 
 	--check for at least one free slot, 
