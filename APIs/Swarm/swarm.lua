@@ -41,7 +41,16 @@ function s.sendCommand(targetId,command)
 	rednet.send(targetId,command,s.protocol)
 
 	local id,msg = rednet.receive(s.protocol,2)
+	l.debug("raw msg:"..tostring(msg),logFileName)
+
+	--deserialize the response from the client (msg)
 	msg = textutils.unserialize(msg)
+	if(type(msg) == "table") then
+		l.debug("deserialized msg:{"..table.concat(msg,",").."}",logFileName)
+	else
+		l.debug("deserialized msg:"..tostring(msg),logFileName)
+	end
+
 	return id,msg
 end
 
