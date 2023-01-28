@@ -52,14 +52,16 @@ function locate()
 	for i=1,#ids do
 		local target = ids[i]
 		local id,result = run(target,"locate")
+		local x,y,z = table.unpack(result)
 
 		if(type(result) == "table") then
 			l.debug("locate(table):"..table.concat(result,","), logFileName)
 		else
 			l.debug("locate():"..result, logFileName)
 		end
+		l.debug("x:"..x..",y:"..y..",z:"..z,logFileName)
 
-		locations[target] = result --run(target,"locate")
+		locations[target] = {x,y,z} --result --run(target,"locate")
 	end
 end
 
