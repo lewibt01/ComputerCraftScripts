@@ -233,7 +233,7 @@ function plumbDepth()
 		end
 	end
 
-	l.debug("locations[target]="..tostring(locations[target]),logFileName)
+	l.debug("locations[target]={"..table.concat(locations[target]).."}",logFileName)
 
 	local y = locations[target][2] - 1
 	l.info("y="..tostring(y),logFileName)
