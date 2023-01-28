@@ -59,7 +59,7 @@ function locate()
 		else
 			l.debug("locate():"..result, logFileName)
 		end
-		l.debug("x:"..x..",y:"..y..",z:"..z,logFileName)
+		l.debug("x:"..tostring(x)..",y:"..tostring(y)..",z:"..tostring(z),logFileName)
 
 		locations[target] = {x,y,z} --result --run(target,"locate")
 	end
