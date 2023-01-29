@@ -286,6 +286,10 @@ end
 -- 	select(1)
 -- end
 
+function dumpInventory()
+	s.distributeCommand(ids,"dumpInventory")
+end
+
 -- baked into turtle client now (as refuelAll), kept as a backup
 -- function refuelStep()
 -- 	--clear the block above the turtle
