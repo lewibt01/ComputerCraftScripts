@@ -3,6 +3,7 @@ package.path = package.path..";/api/?.lua"
 local s = {}
 s.protocol = "swarm"
 s.ids = {}
+s.responseTimeout = 5
 
 l = require("logging")
 local logFileName = "swarmAPI.txt"
@@ -40,7 +41,7 @@ function s.sendCommand(targetId,command)
 
 	rednet.send(targetId,command,s.protocol)
 
-	local id,msg = rednet.receive(s.protocol,2)
+	local id,msg = rednet.receive(s.protocol,s.responseTimeout)
 	l.debug("raw msg:"..tostring(msg),logFileName)
 
 	--deserialize the response from the client (msg)
