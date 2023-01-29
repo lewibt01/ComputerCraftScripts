@@ -124,7 +124,7 @@ function locate()
 	l.debug("locate()",logFileName)
 	local x,y,z = gps.locate()
 	local data = table.pack(x,y,z)
-	print("CMD:locate","->",table.concat(data))
+	print("CMD:locate","->",table.concat(data,","))
 	return data
 	-- result = textutils.serialize({x,y,z})
 	-- -- result = "{"..x..","..y..","..z.."}"

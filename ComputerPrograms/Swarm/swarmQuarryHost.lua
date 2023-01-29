@@ -227,7 +227,7 @@ function plumbDepth()
 	--heavy debug logging
 	for k,v in pairs(locations) do
 		if(type(v) == "table") then
-			l.debug("\t"..k..",{"..table.concat(v).."}",logFileName)
+			l.debug("\t"..k..",{"..table.concat(v,",").."}",logFileName)
 		else
 			l.debug("\t"..k..","..v,logFileName)
 		end
