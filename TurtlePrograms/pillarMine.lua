@@ -24,7 +24,8 @@ function drillDown(d)  --depth
 
 	for i=1,d do
 		turtle.digDown()
-		
+		turtle.dig()
+
 		if(turtle.down()) then
 			actualDepth = actualDepth + 1
 		end
@@ -90,6 +91,7 @@ function run(l,w,d) --length, width, depth
 				drillDown(d)
 				
 				digIfPresent()
+				ensureMoveForward()
 				ensureMoveForward()
 			end
 
