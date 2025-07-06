@@ -25,7 +25,7 @@ function g.orient()
 
 	local deltas = {endPos[1] - startPos[1], endPos[2] - startPos[2], endPos[3] - startPos[3]}
 
-	--if there was no change in the x coord, then it must have changed in the z coord
+	--if there was no change in the x coord, then it must have changed in the z coord, or you know, we just weren't able to move
 	if(deltas[1] == 0) then
 		if(deltas[3] > 0) then
 			return 2
