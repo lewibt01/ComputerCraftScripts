@@ -66,7 +66,7 @@ function locate()
 end
 
 function orient()
-	l.debug("orient()",logFileName)
+	-- l.debug("orient()",logFileName)
 	for i=1,#ids do
 		local target = ids[i]
 		_, orientations[target] = run(target,"orient")
@@ -74,108 +74,108 @@ function orient()
 end
 
 function forward()
-	l.debug("forward()",logFileName)
+	-- l.debug("forward()",logFileName)
 	s.distributeCommand(ids,"forward")
 end
 
 function back()
-	l.debug("back()",logFileName)
+	-- l.debug("back()",logFileName)
 	s.distributeCommand(ids,"back")
 end
 
 function up()
-	l.debug("up()",logFileName)
+	-- l.debug("up()",logFileName)
 	s.distributeCommand(ids,"up")
 end
 
 function down()
-	l.debug("down()",logFileName)
+	-- l.debug("down()",logFileName)
 	s.distributeCommand(ids,"down")
 end
 
 function turnLeft()
-	l.debug("turnLeft()",logFileName)
+	-- l.debug("turnLeft()",logFileName)
 	s.distributeCommand(ids,"turnLeft")
 end
 
 function turnRight()
-	l.debug("turnRight()",logFileName)
+	-- l.debug("turnRight()",logFileName)
 	s.distributeCommand(ids,"turnRight")
 end
 
 function dig()
-	l.debug("dig()",logFileName)
+	-- l.debug("dig()",logFileName)
 	s.distributeCommand(ids,"dig")
 end
 
 function digUp()
-	l.debug("digUp()",logFileName)
+	-- l.debug("digUp()",logFileName)
 	s.distributeCommand(ids,"digUp")
 end
 
 function digDown()
-	l.debug("digDown()",logFileName)
+	-- l.debug("digDown()",logFileName)
 	s.distributeCommand(ids,"digDown")
 end
 
 function place()
-	l.debug("place()",logFileName)
+	-- l.debug("place()",logFileName)
 	s.distributeCommand(ids,"place")
 end
 
 function placeUp()
-	l.debug("placeUp()",logFileName)
+	-- l.debug("placeUp()",logFileName)
 	s.distributeCommand(ids,"placeUp")
 end
 
 function placeDown()
-	l.debug("placeDown()",logFileName)
+	-- l.debug("placeDown()",logFileName)
 	s.distributeCommand(ids,"placeDown")
 end
 
 function drop()
-	l.debug("drop()",logFileName)
+	-- l.debug("drop()",logFileName)
 	s.distributeCommand(ids,"drop")
 end
 
 function dropDwon()
-	l.debug("dropDown()",logFileName)
+	-- l.debug("dropDown()",logFileName)
 	s.distributeCommand(ids,"dropDown")
 end
 
 function dropUp()
-	l.debug("dropUp()",logFileName)
+	-- l.debug("dropUp()",logFileName)
 	s.distributeCommand(ids,"dropUp")
 end
 
 function attack()
-	l.debug("attack()",logFileName)
+	-- l.debug("attack()",logFileName)
 	s.distributeCommand(ids,"attack")
 end
 
 function attackUp()
-	l.debug("attackUp()",logFileName)
+	-- l.debug("attackUp()",logFileName)
 	s.distributeCommand(ids,"attackUp")
 end
 
 function attackDown()
-	l.debug("attackDown()",logFileName)
+	-- l.debug("attackDown()",logFileName)
 	s.distributeCommand(ids,"attackDown")
 end
 
 function refuel()
-	l.debug("refuel()",logFileName)
+	-- l.debug("refuel()",logFileName)
 	s.distributeCommand(ids,"refuel")
 end
 
 function select(n)
-	l.debug("select("..tostring(n)..")",logFileName)
+	-- l.debug("select("..tostring(n)..")",logFileName)
 	local tmp = n % 17 --not the most accurate but close enough
 	s.distributeCommand(ids,"select "..tmp)
 end
 
 function getFuelLevel()
-	l.debug("getFuelLevel()",logFileName)
+	-- l.debug("getFuelLevel()",logFileName)
 	for i=1,#ids do
 		local target = ids[i]
 		_, fuelLevels[target] = run(target,"getFuelLevel")
@@ -204,7 +204,7 @@ end
 
 -- returns whether or not fuel levels are acceptable
 function checkFuel()
-	l.debug("checkFuel()",logFileName)
+	-- l.debug("checkFuel()",logFileName)
 	--get the most up-to-date info
 	getFuelLevel()
 
@@ -219,30 +219,30 @@ function checkFuel()
 end
 
 function plumbDepth()
-	l.debug("plumbDepth()",logFileName)
+	-- l.debug("plumbDepth()",logFileName)
 
 	local target = ids[1]
-	l.info("target="..tostring(target),logFileName)
+	-- l.info("target="..tostring(target),logFileName)
 
 	--heavy debug logging
 	for k,v in pairs(locations) do
 		if(type(v) == "table") then
-			l.debug("\t"..k..",{"..table.concat(v,",").."}",logFileName)
+			-- l.debug("\t"..k..",{"..table.concat(v,",").."}",logFileName)
 		else
-			l.debug("\t"..k..","..v,logFileName)
+			-- l.debug("\t"..k..","..v,logFileName)
 		end
 	end
 
-	l.debug("locations[target]={"..table.concat(locations[target]).."}",logFileName)
+	-- l.debug("locations[target]={"..table.concat(locations[target]).."}",logFileName)
 
 	local y = locations[target][2] - 1
-	l.info("y="..tostring(y),logFileName)
+	-- l.info("y="..tostring(y),logFileName)
 
 	return y
 end
 
 function findNumIterations()
-	l.debug("findNumIterations()",logFileName)
+	-- l.debug("findNumIterations()",logFileName)
 	local depth = plumbDepth()
 	local numIters = math.floor(depth / 2)
 	l.info("Will run for "..tostring(numIters).." iterations",logFileName)
@@ -252,7 +252,7 @@ end
 
 --ensure the turtle has at least one free slot
 function hasFreeSlot(target)
-	l.debug("hasFreeSlot("..tostring(target)..")",logFileName)
+	-- l.debug("hasFreeSlot("..tostring(target)..")",logFileName)
 	local slotIsFree = {}
 	for i=1,14 do
 		run(target, "select "..i)
@@ -324,15 +324,15 @@ end
 
 --refuel the turtles if they need it
 function refuelStep()
-	l.debug("refuelStep()",logFileName)
+	-- l.debug("refuelStep()",logFileName)
 	if(not checkFuel()) then
-		s.distributeCommand(ids,"refuelAll")
+		s.distributeCommand(ids,"refuelFromFilterableSource")
 	end
 end
 
 --digging steps
 function digDownStep()
-	l.debug("digDownStep()",logFileName)
+	-- l.debug("digDownStep()",logFileName)
 	digDown()
 	down()
 	digDown()
@@ -341,7 +341,7 @@ function digDownStep()
 end
 
 function digForwardStep()
-	l.debug("digForwardStep()",logFileName)
+	-- l.debug("digForwardStep()",logFileName)
 	for i=1,15 do
 		dig()
 		-- digUp()
@@ -351,7 +351,7 @@ function digForwardStep()
 end
 
 function rotateStep()
-	l.debug("rotateStep()",logFileName)
+	-- l.debug("rotateStep()",logFileName)
 	turnRight()
 	turnRight()
 end

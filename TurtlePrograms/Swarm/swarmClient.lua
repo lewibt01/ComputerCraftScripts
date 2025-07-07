@@ -113,9 +113,45 @@ function refuelFromChest()
 	turtle.digUp()
 
 	--ensure we have more fuel than when we started
-	result = startingFuel < newFuel
+	local result = startingFuel < newFuel
 
 	print("CMD:refuelFromChest","->",result)
+	return result
+end
+
+-- have one fuel item in inventory slot 15, and try to pull more of those from a shared inventory
+function refuelFromFilterableSource()
+	l.debug("refuelFromFilterableSource()",logFileName)
+	local startingFuel = turtle.getFuelLevel()
+	l.debug("Starting Fuel: "..tostring(startingFuel),logFileName)
+
+	--clear the block above the turtle
+	turtle.digUp()
+
+	--place the dump chest / fuel source
+	turtle.select(16)
+	turtle.placeUp()
+
+	--try to pull some fuel from the source, select the fuel slot
+	turtle.select(15)
+	turtle.suckUp(4)
+	if(turtle.getItemCount() > 4) then
+		turtle.refuel(4)
+	else
+		print("refueling error")
+	end
+
+	--retrieve the dump chest
+	turtle.select(16)
+	turtle.digUp()
+	turtle.select(1)
+
+	local newFuel = turtle.getFuelLevel()
+	l.debug("Ending Fuel:"..tostring(newFuel),logFileName)
+
+	local result = startingFuel < newFuel
+
+	print("CMD:refuelFromFilterableSource","->",result)
 	return result
 end
 
@@ -231,6 +267,9 @@ while(running) do
 
 		elseif(msg == "refuelFromChest") then
 			result = refuelFromChest()
+
+		elseif(msg == "refuelFromFilterableSource") then
+			result = refuelFromFilterableSource()
 
 		elseif(msg == "digDownForward") then
 			result = digDownForward()
