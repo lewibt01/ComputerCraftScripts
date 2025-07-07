@@ -30,7 +30,7 @@ local inventories = {}
 --init starting data
 for i=1,#ids do
 	local t = ids[i]
-	locations[t] = {0,70,0} --undo this hardcoding later once gps decides to work
+	locations[t] = {0,252,0} --undo this hardcoding later once gps decides to work
 	orientations[t] = 0
 	fuelLevels[t] = 0
 	inventories[t] = {}
