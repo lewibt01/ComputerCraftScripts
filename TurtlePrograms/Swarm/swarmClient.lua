@@ -7,21 +7,20 @@ l = require("logging")
 local logFileName = "swarmClient.txt"
 l.wipe(logFileName) --ensure log file is fresh
 
-local hostId = 19
 local protocol = "swarm:chunkMiner"
 
 rednet.open("left")
 local running = true
 
 --[[Helper Functions]]
-function respond(data)
+function respond(id, data)
 	if(type(data) == "table") then
 		l.debug("respond({"..table.concat(data,",").."})",logFileName)
 	else
 		l.debug("respond("..tostring(data)..")",logFileName)
 	end
 	local resp = textutils.serialize(data)
-	rednet.send(hostId,resp,protocol)
+	rednet.send(id,resp,protocol)
 end
 
 --[[Macros]]
@@ -206,21 +205,21 @@ end
 
 while(running) do
 	l.debug("Begin main loop",logFileName)
-	local id,msg = rednet.receive(protocol,60) --large timeout to prevent infinite hang
-	l.info("Received "..tostring(msg).." from ID:"..tostring(id),logFileName)
+	local senderId,msg = rednet.receive(protocol,60) --large timeout to prevent infinite hang
+	l.info("Received "..tostring(msg).." from ID:"..tostring(senderId),logFileName)
 	local result = ""
 
-	if(msg ~= nil) then
+	if(msg ~= nil and senderId ~= nil) then
 		--short circuit if told to stop
 		if(msg == "stop") then
 			print("Stopping.")
 			running = false
-			respond("stopped")
+			respond(senderId,"stopped")
 			break
 
 		--auto updating for ease of use
 		elseif(msg == "update") then
-			respond("updating")
+			respond(senderId,"updating")
 			shell.run("/swarmSetup.lua")
 			break
 
@@ -244,7 +243,7 @@ while(running) do
 
 		--respond to the command
 		-- rednet.send(hostId,textutils.serialize(result),protocol)
-		respond(result)
+		respond(senderId, result)
 	end
 	io.write(".") --ouptut to show heartbeat
 end
