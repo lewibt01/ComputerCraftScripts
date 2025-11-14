@@ -48,11 +48,14 @@ function printHorizontalBar(monitor,x,y,name,max,current)
     local numChars = math.ceil(percent * charWidth)
 
     monitor.setCursorPos(x,y)
-    monitor.write(name.." ("..round(percent,2).."%)")
+    monitor.write(name.." ("..round(percent*100,2).."%)")
     monitor.setCursorPos(x,y+1)
-
-    
     monitor.write(string.rep("|",numChars))
+end
+
+function printValue(monitor,x,y,name,value)
+    monitor.setCursorPos(x,y)
+    monitor.write(name..":"..value)
 end
 
 function draw(monitor,reactor,inGate,outGate)
@@ -76,7 +79,9 @@ function draw(monitor,reactor,inGate,outGate)
     printHorizontalBar(monitor,1,3,"Field Strength",info.maxFieldStrength,info.fieldStrength)
     printHorizontalBar(monitor,1,5,"Fuel Conversion",info.maxFuelConversion,info.fuelConversion)
     printHorizontalBar(monitor,1,7,"Temperature",10000,info.temperature)
-
+    printValue(monitor,1,9,"Field Drain Rate",info.fieldDrainRate)
+    printValue(monitor,1,10,"Fuel Conversion Rate",info.fuelConversionRate)
+    printValue(monitor,1,11,"Generation Rate",info.generationRate)
 end
 
 --[[Reactor Handling]]
