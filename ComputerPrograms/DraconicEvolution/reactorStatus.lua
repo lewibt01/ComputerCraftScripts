@@ -50,7 +50,7 @@ function printHorizontalBar(monitor,x,y,name,max,current)
     monitor.setCursorPos(x,y)
     monitor.write(name.." ("..round(percent*100,2).."%)")
     monitor.setCursorPos(x,y+1)
-    monitor.write(string.rep("|",numChars))
+    monitor.write("["..string.rep("|",numChars-2).."]")
 end
 
 function printValue(monitor,x,y,name,value)
