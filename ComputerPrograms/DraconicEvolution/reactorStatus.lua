@@ -1,7 +1,7 @@
 local reactorName = "draconic_reactor_0"
 -- local monitorName = "monitor_0"
-local inGateName = "flow_gate_0"
-local outGateName = "flow_gate_1"
+local inGateName = "flow_gate_1"
+local outGateName = "flow_gate_0"
 
 function round(n, digits)
     local mult = 10^(digits or 0)
@@ -82,10 +82,28 @@ function draw(monitor,reactor,inGate,outGate)
     printValue(monitor,1,9,"Field Drain Rate",info.fieldDrainRate)
     printValue(monitor,1,10,"Fuel Conversion Rate",info.fuelConversionRate)
     printValue(monitor,1,11,"Generation Rate",info.generationRate)
+    printValue(monitor,1,12,"Flow In ",inGate.getFlow())
+    printValue(monitor,1,13,"Flow Out",outGate.getFlow())
+    printValue(monitor,1,14,"Estimated Runtime (hrs)",round(getEstimatedRuntime(reactor),1))
 end
 
 --[[Reactor Handling]]
+function adjust(reactor,inGate,outGate)
+    local r = reactor.getReactorInfo()
+    local inFlow = inGate.getFlow()
+    local outFlow = outGate.getFlow()
 
+
+end
+
+function getEstimatedRuntime(reactor)
+    local info = reactor.getReactorInfo()
+
+    local ticks = (info.maxFuelConversion*10^6)/info.fuelConversionRate
+    local seconds = ticks/20
+    local hours = seconds / 60 / 60
+    return hours
+end
 
 --[[MAIN]]--
 
@@ -103,4 +121,8 @@ mon.setBackgroundColor(colors.black)
 mon.setTextColor(colors.white)
 mon.clear()
 
-draw(mon,reactor,inGate,outGate)
+while(true) do
+    draw(mon,reactor,inGate,outGate)
+    os.sleep(1)
+end
+
