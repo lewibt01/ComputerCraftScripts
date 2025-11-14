@@ -41,8 +41,9 @@ function printHorizontalBar(monitor,x,y,name,max,current)
     monitor.setCursorPos(x,y+1)
 
     -- get percentage...
+    local width,height = monitor.getSize()
     local percent = current / max
-    local charWidth = 20 --this will be the mnoitor width later
+    local charWidth = width
     local numChars = math.ceil(percent * charWidth)
     monitor.write(string.rep("|",numChars))
 end
@@ -71,5 +72,3 @@ mon.clear()
 
 
 printHorizontalBar(mon,1,1,"Energy Saturation",1000000000,getEnergySaturation(reactor))
-
-mon.write("Hello from the computer!")
