@@ -36,23 +36,27 @@ end
 
 --[[Monitor Printing]]
 function printHorizontalBar(monitor,x,y,name,max,current)
+    local width,height = monitor.getSize()
     monitor.setCursorPos(x,y)
     monitor.write(name)
     monitor.setCursorPos(x,y+1)
 
     -- get percentage...
-    local width,height = monitor.getSize()
     local percent = current / max
     local charWidth = width
     local numChars = math.ceil(percent * charWidth)
     monitor.write(string.rep("|",numChars))
 end
 
---[[Reactor Handling]]
-function getEnergySaturation(reactor)
+function draw(monitor,reactor,inGate,outGate)
     local info = reactor.getReactorInfo()
-    return info.energySaturation
+    printHorizontalBar(mon,1,1,"Energy Saturation",info.maxEnergySaturation,info.energySaturation)
+    printHorizontalBar(mon,1,3,"Field Strength",info.maxFieldStrength,info.fieldStrength)
+    printHorizontalBar(mon,1,5,"Fuel Conversion",info.maxFuelConversion,info.fuelConversion)
 end
+
+--[[Reactor Handling]]
+
 
 --[[MAIN]]--
 
@@ -70,5 +74,4 @@ mon.setBackgroundColor(colors.black)
 mon.setTextColor(colors.white)
 mon.clear()
 
-
-printHorizontalBar(mon,1,1,"Energy Saturation",1000000000,getEnergySaturation(reactor))
+draw(mon,reactor,inGate,outGate)
