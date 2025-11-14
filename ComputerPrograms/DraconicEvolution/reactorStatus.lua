@@ -50,9 +50,9 @@ end
 
 function draw(monitor,reactor,inGate,outGate)
     local info = reactor.getReactorInfo()
-    printHorizontalBar(mon,1,1,"Energy Saturation",info.maxEnergySaturation,info.energySaturation)
-    printHorizontalBar(mon,1,3,"Field Strength",info.maxFieldStrength,info.fieldStrength)
-    printHorizontalBar(mon,1,5,"Fuel Conversion",info.maxFuelConversion,info.fuelConversion)
+    printHorizontalBar(monitor,1,1,"Energy Saturation",info.maxEnergySaturation,info.energySaturation)
+    printHorizontalBar(monitor,1,3,"Field Strength",info.maxFieldStrength,info.fieldStrength)
+    printHorizontalBar(monitor,1,5,"Fuel Conversion",info.maxFuelConversion,info.fuelConversion)
 end
 
 --[[Reactor Handling]]
