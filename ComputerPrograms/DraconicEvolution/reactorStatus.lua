@@ -1,7 +1,9 @@
 local reactorName = "draconic_reactor_0"
--- local monitorName = "monitor_0"
 local inGateName = "flow_gate_1"
 local outGateName = "flow_gate_0"
+
+local targetOutput = 4500000
+lastInfo = {}
 
 function round(n, digits)
     local mult = 10^(digits or 0)
@@ -37,7 +39,6 @@ function getMonitor(modem)
 
     return peripheral.wrap(monitorName)
 end
-
 
 --[[Monitor Printing]]
 function printHorizontalBar(monitor,x,y,name,max,current)
@@ -75,6 +76,7 @@ function draw(monitor,reactor,inGate,outGate)
         status,
         temperature
     ]]
+    monitor.clear()
     printHorizontalBar(monitor,1,1,"Energy Saturation",info.maxEnergySaturation,info.energySaturation)
     printHorizontalBar(monitor,1,3,"Field Strength",info.maxFieldStrength,info.fieldStrength)
     printHorizontalBar(monitor,1,5,"Fuel Conversion",info.maxFuelConversion,info.fuelConversion)
@@ -85,6 +87,7 @@ function draw(monitor,reactor,inGate,outGate)
     printValue(monitor,1,12,"Flow In ",inGate.getFlow())
     printValue(monitor,1,13,"Flow Out",outGate.getFlow())
     printValue(monitor,1,14,"Estimated Runtime (hrs)",round(getEstimatedRuntime(reactor),1))
+    printValue(monitor,1,15,"Efficiency (RF/nb)",round(info.generationRate/info.fuelConversionRate,1))
 end
 
 --[[Reactor Handling]]
@@ -94,6 +97,13 @@ function adjust(reactor,inGate,outGate)
     local outFlow = outGate.getFlow()
 
 
+end
+
+function updateHistory(reactor)
+    local info = reactor.getReactorInfo()
+    for k,v in pairs(info) do
+        lastInfo[key] = value
+    end
 end
 
 function getEstimatedRuntime(reactor)
@@ -121,8 +131,11 @@ mon.setBackgroundColor(colors.black)
 mon.setTextColor(colors.white)
 mon.clear()
 
+local iteration = 0
 while(true) do
-    draw(mon,reactor,inGate,outGate)
+    iteration = iteration % 10
+    if iteration == 0 then
+        draw(mon,reactor,inGate,outGate)
+    end
     os.sleep(1)
 end
-
